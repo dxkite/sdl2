@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--  
+Copyright © dxkite all rights reserved.
+SDL2 Teach Simple Web Page Code
+SDL2教程简单网页代码
+Copyright © 2014 冯世昌 保留所有权利  
+ -->
+<meta content="text/html;charset=UTF-8" http-equiv="Content-Type">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+ <link type="text/css" rel="stylesheet" href="../../css/dxkite.css"/>
+</head>
+<body id=top>
+<title>简单渲染文字</title>
+<h3 id=header>简单渲染文字</h3>
+<div id="content">
+<!--  编辑区  -->
+<div class=textbox>
+<p>曾经，小小的我为了在游戏上显示文字，用了一张张图片……现在，解放啦！它就是 “SDL_ttf” 使用它，我们可以通过文字生成一个Surface，来看看怎么用的吧！</p>
+
+  <p>首先，包含字体扩展库</p><div class=code>#include &lt;SDL2/SDL.h&gt;</div><p>初始化字体</p><pre class=code>// 初始化字体
+  TTF_Init();</pre><p>定义一个字体库变量，用于加载字体文件</p><pre class=code>  TTF_Font *font = NULL;</pre>
+  <p>加载字体文件</p>
+  <pre class=code>//打开字体/* 字体路径 /*字体大小
+  font = TTF_OpenFont(FontsPath, FontSize);
+</pre>
+<p>如注释所说，第一个为字体路径，第二个为字体大小，字体路径在安卓平台上使用 "/system/fonts/DroidSansFallback.ttf" ，函数只支持TTF格式字体。</p>
+  <pre class=code>  /*
+   *结构体原型
+   SDL_Color
+   {
+   Uint8 r,g,b,a;
+   };
+   */
+  //字体颜色
+  SDL_Color color;
+
+  color.r = r;
+  color.g = g;
+  color.b = b;
+  color.a = a;
+
+  SDL_Surface *temp = NULL;
+  SDL_Texture *fonts = NULL;
+  // 绘制表面……字体编码为 UTF-8
+  temp = TTF_RenderUTF8_Blended(font, Fonts, color);</pre><p>在这里，我们使用了又一个新结构体<code>SDL_Color</code>用来储存RGBA颜色值，函数 <code>TTF_RenderUTF8_Blended</code>是将文字生成表面的一个函数之一(其他函数编码对中文支持不高，本函数支持UTF-8编码，不支持换行符等特殊字符)，这个函数第一个参数为c风格字符串，是将创建的表面上的文字，第二个是文字的颜色，接受一个SDL_Color的颜色值，通过这个函数我们可以创建一个带文字的表面(Surface)</p>
+<p>程序的最后……不要忘了退出字体……和关闭哦！
+<pre class=code>  //释放字体
+  TTF_CloseFont(font);
+  TTF_Quit();</pre></p>
+  
+  <p>SDL_ttf里还有更多函数，比如<code>TTF_SetFontStyle</code>设置字体style的，当然就不介绍了啦，我只是教简单渲染文字哎～有空大家去翻翻头文件，自己尝试吧。</p>
+</div>
+<!--  编辑区  -->
+</div>
+<div id=bottom><a href="../../../code/nc_4_1.cpp.html">code</a>
+<a href="nc_3.html">上一节</a>
+<a href="contents.html">目录</a>
+<a href="nc_5.html">下一节</a>
+<a href="#top">回到顶部</a>
+</div>
+</div>
+
+</div>
+<div id=copr>
+Copyright © 2014 冯世昌 保留所有权利
+</div>
+</body>
+</html>

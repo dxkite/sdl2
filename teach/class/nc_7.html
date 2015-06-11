@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--  
+Copyright © dxkite all rights reserved.
+SDL2 Teach Simple Web Page Code
+SDL2教程简单网页代码
+Copyright © 2014 冯世昌 保留所有权利  
+ -->
+<meta content="text/html;charset=UTF-8" http-equiv="Content-Type">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+ <link type="text/css" rel="stylesheet" href="../../css/dxkite.css"/>
+</head>
+<body id=top>
+<title>线程和计时器</title>
+<h3 id=header>线程和计时器</h3>
+<div id="content">
+<!--  编辑区  -->
+<div class=textbox>
+<div class=title5>线程</div>
+<p>画图中……咦？卡住了……是的，画图画着画着就不动了，这是怎么回事呢？回头看看代码，哦，这里运算太多了，还没计算出来怎么画图？(电脑说:臣妾做不到啊～～)怎么办？答案是创建一个用于计算的线程(线程是啥？自行百度吧……)，怎么创建呢？如下代码:</p>
+<pre class=code>//事件线程
+SDL_Thread *Thread = NULL;
+//窗口标题线程
+SDL_Thread *Thread2 = NULL;</pre><p><code>SDL_Thread</code>用来申明一个线程先初始化为NULL，再来创建线程:</p>
+<div class=code>//创建线程
+  Thread = SDL_CreateThread(EventThread, "Thread", (void *) NULL);
+  Thread2 = SDL_CreateThread(TitleThread, "Thread2", (void *) NULL);</div>函数<code>SDL_CreateThread</code>的参数第一个是线程入口函数(可以理解为main函数)，第二个是线程的名字，随便起吧，第三个是传入入口函数数据的指针首地址(不知道什么是指针？搞懂再来看吧)这里我申明定义了两个入口函数:<code>EventThread</code>和<code>TitleThread</code>，入口函数的类型<code>int(*)(void*)</code>，即接受一个void*参数返回int类型的函数。
+  来看看我们两个函数的内容:
+<pre class=code>int EventThread(void *ptr)
+{
+
+  //切割表面的区域
+  Cut.x = 0;
+  Cut.y = 0;
+  Cut.w = 28;
+  Cut.h = 28;
+
+  //粘贴表面的盒子
+  Box.x = 50;
+  Box.y = 50;
+  Box.w = 100;
+  Box.h = 100;
+//事件储存器
+  SDL_Event Event;
+
+  //获取键盘焦点
+  Window = SDL_GetKeyboardFocus();
+
+  //弹出软键盘
+  SDL_StartTextInput();
+  while (!Quit) {
+
+    //将事件储存至储存器中
+    while (SDL_PollEvent(&Event) != 0) {
+
+      if (Event.type == SDL_KEYDOWN)
+	switch (Event.key.keysym.sym) {
+	case SDLK_UP:
+	  {
+	    Box.y -= 50;
+	    break;
+	  }
+	case SDLK_DOWN:
+	  {
+	    Box.y += 50;
+	    break;
+	  }
+	case SDLK_LEFT:
+	  {
+
+	    Box.x -= 50;
+	    break;
+	  }
+	case SDLK_RIGHT:
+	  {
+	    Box.x += 50;
+	    break;
+	  }
+	  //菜单键退出……
+	case SDLK_MENU:{
+	    // dbg("MENU");
+	    Quit = true;
+	    break;
+	  }
+	}
+      //SDL_Delay(2000);
+    }
+  }
+  return 0;
+}
+</pre><p>事件线程，处理事件。</p>
+<pre class=code>
+int TitleThread(void *ptr)
+{
+  while (!Quit) {
+    SDL_SetWindowTitle(Window, "线程进行中");
+    SDL_Delay(250);
+    SDL_SetWindowTitle(Window, "线程进行中.");
+    SDL_Delay(250);
+    SDL_SetWindowTitle(Window, "线程进行中..");
+    SDL_Delay(250);
+    SDL_SetWindowTitle(Window, "线程进行中...");
+    SDL_Delay(250);
+  }
+
+  return 0;
+}</pre><p>标题线程，用来设置窗口标题，在运行时标题会不断变化(手机看不到哦～)，好了，这样，在运行的时候函数TitleThread和函数EventThread还有main函数同时运行。咦，如果我们想等副线程函数完成再运行怎么弄？<pre class=code> // 等待线程运行完成
+  SDL_WaitThread(Thread, NULL);
+  SDL_WaitThread(Thread2, NULL);</pre>第一个参数是线程，第二个参数用来获取线程的返回值(int)  <a href="../../../code/nc_7_1.cpp.html">code</a></p>
+<div class=title5>计时器</div>
+<p>计时器，其实我们一直在用，只是你不知道而已。就是延迟函数 <code>SDL_Delay</code>延迟一段时间，在使用计时器之前，我们需要……初始化一下下</p>
+<pre class=code> //初始化计时器
+  SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER);</pre>哦啦，接下来申明一个计时器ID并且初始化～<pre class=code> //3秒退出
+  int delay_time = 1000 * 3;
+  //申明并添加计时器
+  SDL_TimerID Time;
+  Time = SDL_AddTimer(delay_time, CallExit, NULL);</pre><p>添加计时器的函数与添加线程的函数差不多，第一个参数是计时器计时的时间，第二个参数是Uint32(*)(Uint32,void*)类型的入口函数，这个函数是计时时间到了的时候就执行，第三个函数是一个数据指针的首地址，是传入给入口函数的数据，来看看我们的入口函数吧</p>
+  <pre class=code>bool Quit = false;
+Uint32 CallExit(Uint32 p, void *data)
+{
+  Quit = true;
+}</pre><p>可以看到入口函数的第一个参数，传入的是是计时器的计时时间，第二个当然就是数据喽。当计时器不用的时候我们需要移除它</p><pre class=code>  //移除计时器
+  SDL_RemoveTimer(Time);</pre><p>
+与计时器相关的函数还有一个<code>SDL_GetTicks</code>可以获取当前的时间，返回一个Uint32的数值，这个函数从程序运行的时候计时，你得到的是以程序开始运行时间为参照的时间，由于是返回Uint32类型的数值，按官网上的说法，你的程序可以连续运行49天都没事，感觉略吊。 <a href="../../../code/nc_7_2.cpp.html">code</a></p>
+</div>
+<!--  编辑区  -->
+</div>
+<div id=bottom>
+<a href="nc_6.html">上一节</a>
+<a href="contents.html">目录</a>
+<a href="continue.html">后记</a>
+<a href="#top">回到顶部</a>
+</div>
+</div>
+
+</div>
+<div id=copr>
+Copyright © 2014 冯世昌 保留所有权利
+</div>
+</body>
+</html>
