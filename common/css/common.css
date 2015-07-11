@@ -163,3 +163,6 @@ bottom:0px;	background-color:rgba(0,0,0,0.4);
 	background: #F5F5F5;
 	
 }
+#menu {
+	display: none;
+}
