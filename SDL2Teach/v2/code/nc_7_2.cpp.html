@@ -1,0 +1,157 @@
+﻿<html >
+<head>
+  <!--  
+Copyright © dxkite all rights reserved.
+SDL2 Teach Simple Web Page Code
+SDL2教程简单网页代码
+Copyright © 2014 冯世昌 保留所有权利  
+ -->
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+</head>
+<body>
+
+<!-- CoolFormat Source Formatter http://blog.csdn.net/akof1314 --><div style="width:100%;border:1px #e3e3e3 solid;"><div style="width:100%;font-family:'DejaVu Sans Mono', 'Courier New';font-size:14px;border-bottom:1px solid #e3e3e3;margin-top:5px;color:#000000;">&nbsp;C++ Code&nbsp;By DXkite</div><table style="width:100%;font-family:'DejaVu Sans Mono', 'Courier New';font-size:14px;vertical-align:text-top;line-height:18px;" border="0" cellspacing="0" cellpadding="0"><tr><td style="color:#008284;background-color:#e3e3e3;vertical-align:text-top;"><div style="margin:7px;text-align:right;white-space:nowrap;"><nobr>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>33<br>34<br>35<br>36<br>37<br>38<br>39<br>40<br>41<br>42<br>43<br>44<br>45<br>46<br>47<br>48<br>49<br>50<br>51<br>52<br>53<br>54<br>55<br>56<br>57<br>58<br>59<br>60<br>61<br>62<br>63<br>64<br>65<br>66<br>67<br>68<br>69<br>70<br>71<br>72<br>73<br>74<br>75<br>76<br>77<br>78<br>79<br>80<br>81<br>82<br>83<br>84<br>85<br>86<br>87<br>88<br>89<br>90<br>91<br>92<br>93<br>94<br>95<br>96<br>97<br>98<br>99<br>100<br>101<br>102<br>103<br>104<br>105<br>106<br>107<br>108<br>109<br>110<br>111<br>112<br>113<br>114<br>115<br>116<br>117<br>118<br>119<br>120<br>121<br>122<br>123<br>124<br>125<br>126<br>127<br>128<br>129<br>130<br>131<br>132<br>133<br>134<br>135<br>136<br>137<br>138<br>139<br>140<br></nobr></div></td><td style="background-color:#008284;padding:1px;"><div style="border:1px #008284 solid;"></div></td><td style="background-color:#efefef;width:100%;vertical-align:text-top;color:#000000;"><div style="margin:7px;"><span style="color:#168000;">/*<BR>
+文件名:nc_7_2.cpp<BR>
+标识:SDL2教程源码<BR>
+描述:使用Timer<BR>
+<BR>
+作者:冯世昌<BR>
+创建时间:2015年1月1日<BR>
+联系方式:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;QQ:670337693<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;Email:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dxkite@163.com<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;670337693@qq.com<BR>
+版权申明:&nbsp;&nbsp;&nbsp;<BR>
+a.使用者可以随时利用本文件创建其它文件.<BR>
+b.使用者可以随时修改文件有效代码内容.<BR>
+c.使用者不得修改版权申明，版权归文件创建者所有.<BR>
+d.文件使用者本人承担使用本文档后的所有法律责任,本件创建者不为您的文件内容承担任何法律责任.<BR>
+e.如有修改或重写发布时请保留本部分内容<BR>
+Copyright&nbsp;©&nbsp;DXkite&nbsp;2014&nbsp;all&nbsp;rights&nbsp;reserved.<BR>
+*/</span><span style="color:#000000;"><BR>
+<BR>
+</span><span style="color:#800000;">#include</span><span style="color:#000000;">&nbsp;&lt;SDL2/SDL.h&gt;<BR>
+</span><span style="color:#800000;">#include</span><span style="color:#000000;">&nbsp;&lt;SDL2/SDL_ttf.h&gt;<BR>
+</span><span style="color:#168000;">//&nbsp;窗口<BR>
+</span><span style="color:#000000;">SDL_Window&nbsp;*Window&nbsp;=&nbsp;</span><span style="color:#800000;">NULL</span><span style="color:#000000;">;<BR>
+</span><span style="color:#168000;">//渲染器<BR>
+</span><span style="color:#000000;">SDL_Renderer&nbsp;*Renderer&nbsp;=&nbsp;</span><span style="color:#800000;">NULL</span><span style="color:#000000;">;<BR>
+</span><span style="color:#168000;">//纹理贴图<BR>
+</span><span style="color:#000000;">SDL_Texture&nbsp;*Texture&nbsp;=&nbsp;</span><span style="color:#800000;">NULL</span><span style="color:#000000;">;<BR>
+<BR>
+</span><span style="color:#168000;">//&nbsp;图片表面<BR>
+</span><span style="color:#000000;">SDL_Surface&nbsp;*Surface&nbsp;=&nbsp;</span><span style="color:#800000;">NULL</span><span style="color:#000000;">;<BR>
+<BR>
+</span><span style="color:#c00048;">int</span><span style="color:#000000;">&nbsp;Init()<BR>
+{<BR>
+&nbsp;&nbsp;</span><span style="color:#168000;">//初始化计时器<BR>
+</span><span style="color:#000000;">&nbsp;&nbsp;SDL_Init(SDL_INIT_VIDEO&nbsp;|&nbsp;SDL_INIT_TIMER);<BR>
+&nbsp;&nbsp;</span><span style="color:#168000;">//&nbsp;创建窗口<BR>
+</span><span style="color:#000000;">&nbsp;&nbsp;Window&nbsp;=&nbsp;SDL_CreateWindow(</span><span style="color:#1600ff;">"SDL_Window"</span><span style="color:#000000;">,&nbsp;SDL_WINDOWPOS_CENTERED,&nbsp;SDL_WINDOWPOS_CENTERED,&nbsp;</span><span style="color:#ff0000;">240</span><span style="color:#000000;">,&nbsp;</span><span style="color:#ff0000;">400</span><span style="color:#000000;">,&nbsp;SDL_WINDOW_SHOWN);<BR>
+&nbsp;&nbsp;</span><span style="color:#800000;">if</span><span style="color:#000000;">&nbsp;(Window&nbsp;==&nbsp;</span><span style="color:#800000;">NULL</span><span style="color:#000000;">)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#800000;">return</span><span style="color:#000000;">&nbsp;-</span><span style="color:#ff0000;">1</span><span style="color:#000000;">;<BR>
+&nbsp;&nbsp;</span><span style="color:#168000;">//创建渲染器<BR>
+</span><span style="color:#000000;">&nbsp;&nbsp;Renderer&nbsp;=&nbsp;SDL_CreateRenderer(Window,&nbsp;-</span><span style="color:#ff0000;">1</span><span style="color:#000000;">,&nbsp;SDL_RENDERER_ACCELERATED);<BR>
+&nbsp;&nbsp;</span><span style="color:#800000;">if</span><span style="color:#000000;">&nbsp;(Renderer&nbsp;==&nbsp;</span><span style="color:#800000;">NULL</span><span style="color:#000000;">)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#800000;">return</span><span style="color:#000000;">&nbsp;-</span><span style="color:#ff0000;">2</span><span style="color:#000000;">;<BR>
+&nbsp;&nbsp;</span><span style="color:#800000;">return</span><span style="color:#000000;">&nbsp;</span><span style="color:#ff0000;">0</span><span style="color:#000000;">;<BR>
+}<BR>
+<BR>
+<BR>
+</span><span style="color:#c00048;">void</span><span style="color:#000000;">&nbsp;RenderText(</span><span style="color:#c00048;">int</span><span style="color:#000000;">&nbsp;x,&nbsp;</span><span style="color:#c00048;">int</span><span style="color:#000000;">&nbsp;y,&nbsp;</span><span style="color:#800000;">const</span><span style="color:#000000;">&nbsp;</span><span style="color:#c00048;">char</span><span style="color:#000000;">&nbsp;*text)<BR>
+{<BR>
+&nbsp;&nbsp;TTF_Init();<BR>
+&nbsp;&nbsp;TTF_Font&nbsp;*font&nbsp;=&nbsp;</span><span style="color:#800000;">NULL</span><span style="color:#000000;">;<BR>
+&nbsp;&nbsp;</span><span style="color:#c00048;">int</span><span style="color:#000000;">&nbsp;w&nbsp;=&nbsp;</span><span style="color:#ff0000;">0</span><span style="color:#000000;">,&nbsp;h&nbsp;=&nbsp;</span><span style="color:#ff0000;">0</span><span style="color:#000000;">;<BR>
+</span><span style="color:#800000;">#if</span><span style="color:#000000;">&nbsp;defined(__ANDROID__)<BR>
+</span><span style="color:#168000;">//安卓平台使用手机本身的字体<BR>
+</span><span style="color:#000000;">&nbsp;&nbsp;font&nbsp;=&nbsp;TTF_OpenFont(</span><span style="color:#1600ff;">"/system/fonts/DroidSansFallback.ttf"</span><span style="color:#000000;">,&nbsp;</span><span style="color:#ff0000;">40</span><span style="color:#000000;">);<BR>
+</span><span style="color:#800000;">#else</span><span style="color:#000000;"><BR>
+</span><span style="color:#168000;">//其他平台使用默认字体<BR>
+</span><span style="color:#000000;">&nbsp;&nbsp;font&nbsp;=&nbsp;TTF_OpenFont(</span><span style="color:#1600ff;">"f.ttf"</span><span style="color:#000000;">,&nbsp;</span><span style="color:#ff0000;">28</span><span style="color:#000000;">);<BR>
+</span><span style="color:#800000;">#endif</span><span style="color:#000000;"><BR>
+&nbsp;&nbsp;SDL_Color&nbsp;color;<BR>
+&nbsp;&nbsp;color.r&nbsp;=&nbsp;0xff;<BR>
+&nbsp;&nbsp;color.g&nbsp;=&nbsp;</span><span style="color:#ff0000;">0</span><span style="color:#000000;">;<BR>
+&nbsp;&nbsp;color.b&nbsp;=&nbsp;</span><span style="color:#ff0000;">0</span><span style="color:#000000;">;<BR>
+&nbsp;&nbsp;color.a&nbsp;=&nbsp;0xff;<BR>
+<BR>
+&nbsp;&nbsp;Surface&nbsp;=&nbsp;TTF_RenderUTF8_Blended(font,&nbsp;text,&nbsp;color);<BR>
+&nbsp;&nbsp;w&nbsp;=&nbsp;Surface-&gt;w;<BR>
+&nbsp;&nbsp;h&nbsp;=&nbsp;Surface-&gt;h;<BR>
+&nbsp;&nbsp;Texture&nbsp;=&nbsp;SDL_CreateTextureFromSurface(Renderer,&nbsp;Surface);<BR>
+&nbsp;&nbsp;TTF_CloseFont(font);<BR>
+&nbsp;&nbsp;SDL_Rect&nbsp;Box;<BR>
+&nbsp;&nbsp;Box.x&nbsp;=&nbsp;x;<BR>
+&nbsp;&nbsp;Box.y&nbsp;=&nbsp;y;<BR>
+&nbsp;&nbsp;Box.w&nbsp;=&nbsp;w;<BR>
+&nbsp;&nbsp;Box.h&nbsp;=&nbsp;h;<BR>
+&nbsp;&nbsp;SDL_RenderCopy(Renderer,&nbsp;Texture,&nbsp;</span><span style="color:#800000;">NULL</span><span style="color:#000000;">,&nbsp;&Box);<BR>
+&nbsp;&nbsp;TTF_Quit();<BR>
+<BR>
+}<BR>
+<BR>
+</span><span style="color:#c00048;">void</span><span style="color:#000000;">&nbsp;Destroy()<BR>
+{<BR>
+&nbsp;&nbsp;SDL_FreeSurface(Surface);<BR>
+&nbsp;&nbsp;SDL_DestroyWindow(Window);<BR>
+&nbsp;&nbsp;SDL_DestroyTexture(Texture);<BR>
+&nbsp;&nbsp;SDL_DestroyRenderer(Renderer);<BR>
+&nbsp;&nbsp;SDL_Quit();<BR>
+}<BR>
+<BR>
+</span><span style="color:#c00048;">bool</span><span style="color:#000000;">&nbsp;Quit&nbsp;=&nbsp;</span><span style="color:#800000;">false</span><span style="color:#000000;">;<BR>
+Uint32&nbsp;CallExit(Uint32&nbsp;p,&nbsp;</span><span style="color:#c00048;">void</span><span style="color:#000000;">&nbsp;*data)<BR>
+{<BR>
+&nbsp;&nbsp;Quit&nbsp;=&nbsp;</span><span style="color:#800000;">true</span><span style="color:#000000;">;<BR>
+}<BR>
+<BR>
+</span><span style="color:#c00048;">int</span><span style="color:#000000;">&nbsp;main(</span><span style="color:#c00048;">int</span><span style="color:#000000;">&nbsp;args,&nbsp;</span><span style="color:#c00048;">char</span><span style="color:#000000;">&nbsp;*argv[])<BR>
+{<BR>
+&nbsp;&nbsp;</span><span style="color:#168000;">//初始化<BR>
+</span><span style="color:#000000;">&nbsp;&nbsp;</span><span style="color:#800000;">if</span><span style="color:#000000;">&nbsp;(Init()&nbsp;!=&nbsp;</span><span style="color:#ff0000;">0</span><span style="color:#000000;">)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#800000;">return</span><span style="color:#000000;">&nbsp;-</span><span style="color:#ff0000;">1</span><span style="color:#000000;">;<BR>
+&nbsp;&nbsp;</span><span style="color:#c00048;">char</span><span style="color:#000000;">&nbsp;str[</span><span style="color:#ff0000;">80</span><span style="color:#000000;">];<BR>
+&nbsp;&nbsp;</span><span style="color:#168000;">//计时<BR>
+</span><span style="color:#000000;">&nbsp;&nbsp;</span><span style="color:#c00048;">int</span><span style="color:#000000;">&nbsp;i&nbsp;=&nbsp;</span><span style="color:#ff0000;">0</span><span style="color:#000000;">;<BR>
+&nbsp;&nbsp;</span><span style="color:#168000;">//3秒退出<BR>
+</span><span style="color:#000000;">&nbsp;&nbsp;</span><span style="color:#c00048;">int</span><span style="color:#000000;">&nbsp;delay_time&nbsp;=&nbsp;</span><span style="color:#ff0000;">1000</span><span style="color:#000000;">&nbsp;*&nbsp;</span><span style="color:#ff0000;">3</span><span style="color:#000000;">;<BR>
+&nbsp;&nbsp;</span><span style="color:#168000;">//申明并添加计时器<BR>
+</span><span style="color:#000000;">&nbsp;&nbsp;SDL_TimerID&nbsp;Time;<BR>
+&nbsp;&nbsp;Time&nbsp;=&nbsp;SDL_AddTimer(delay_time,&nbsp;CallExit,&nbsp;</span><span style="color:#800000;">NULL</span><span style="color:#000000;">);<BR>
+<BR>
+&nbsp;&nbsp;Uint32&nbsp;past&nbsp;=&nbsp;</span><span style="color:#ff0000;">0</span><span style="color:#000000;">,&nbsp;now&nbsp;=&nbsp;</span><span style="color:#ff0000;">0</span><span style="color:#000000;">;<BR>
+&nbsp;&nbsp;</span><span style="color:#800000;">while</span><span style="color:#000000;">&nbsp;(!Quit)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#168000;">//清理渲染器<BR>
+</span><span style="color:#000000;">&nbsp;&nbsp;&nbsp;&nbsp;SDL_RenderClear(Renderer);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;now&nbsp;=&nbsp;SDL_GetTicks();<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;sprintf(str,&nbsp;</span><span style="color:#1600ff;">"TIME:%d"</span><span style="color:#000000;">,&nbsp;i);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;RenderText(</span><span style="color:#ff0000;">50</span><span style="color:#000000;">,&nbsp;</span><span style="color:#ff0000;">50</span><span style="color:#000000;">,&nbsp;str);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;++i;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;sprintf(str,&nbsp;</span><span style="color:#1600ff;">"PAST:%d"</span><span style="color:#000000;">,&nbsp;past);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;RenderText(</span><span style="color:#ff0000;">50</span><span style="color:#000000;">,&nbsp;</span><span style="color:#ff0000;">90</span><span style="color:#000000;">,&nbsp;str);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;sprintf(str,&nbsp;</span><span style="color:#1600ff;">"NOW:%d"</span><span style="color:#000000;">,&nbsp;now);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;RenderText(</span><span style="color:#ff0000;">50</span><span style="color:#000000;">,&nbsp;</span><span style="color:#ff0000;">130</span><span style="color:#000000;">,&nbsp;str);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;sprintf(str,&nbsp;</span><span style="color:#1600ff;">"PAST_TIME:%d"</span><span style="color:#000000;">,&nbsp;now&nbsp;-&nbsp;past);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;RenderText(</span><span style="color:#ff0000;">50</span><span style="color:#000000;">,&nbsp;</span><span style="color:#ff0000;">170</span><span style="color:#000000;">,&nbsp;str);<BR>
+</span><span style="color:#168000;">//刷新<BR>
+</span><span style="color:#000000;">&nbsp;&nbsp;&nbsp;&nbsp;SDL_RenderPresent(Renderer);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#168000;">//延时函数<BR>
+</span><span style="color:#000000;">&nbsp;&nbsp;&nbsp;&nbsp;SDL_Delay(</span><span style="color:#ff0000;">1000</span><span style="color:#000000;">);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;past&nbsp;=&nbsp;now;<BR>
+&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;SDL_RenderClear(Renderer);<BR>
+&nbsp;&nbsp;RenderText(</span><span style="color:#ff0000;">100</span><span style="color:#000000;">,&nbsp;</span><span style="color:#ff0000;">100</span><span style="color:#000000;">,&nbsp;</span><span style="color:#1600ff;">"EIXT"</span><span style="color:#000000;">);<BR>
+&nbsp;&nbsp;SDL_RenderPresent(Renderer);<BR>
+&nbsp;&nbsp;SDL_Delay(</span><span style="color:#ff0000;">500</span><span style="color:#000000;">);<BR>
+&nbsp;&nbsp;</span><span style="color:#168000;">//移除计时器<BR>
+</span><span style="color:#000000;">&nbsp;&nbsp;SDL_RemoveTimer(Time);<BR>
+&nbsp;&nbsp;Destroy();<BR>
+&nbsp;&nbsp;</span><span style="color:#800000;">return</span><span style="color:#000000;">&nbsp;</span><span style="color:#ff0000;">0</span><span style="color:#000000;">;<BR>
+}</span></div></td></tr></table></div>
+
+</body>
+</html>

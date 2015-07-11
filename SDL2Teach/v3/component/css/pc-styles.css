@@ -1,0 +1,161 @@
+	
+/* new styles by dxkite*/
+/*
+*  SDL2教程网页组件
+*  7月11日 2015
+*  © DXkite
+*/
+body {
+	margin: 0px;
+	padding: 0px;
+	background-image: url(../media/bg.gif);
+	font-size: 18px;
+}
+h1 {
+	font-size: 20px;
+	padding: 10px;
+	font-weight: normal;
+	background-color: rgba(255,255,0,0.5);
+	border-bottom:rgb(255,255,0) 5px solid;
+	text-align:center;
+}
+h2 {
+	font-size: 20px;
+	padding: 10px;
+	font-weight: normal;
+	background-color: rgba(0,255 ,0,0.5);
+	border-bottom:rgb(0,255 ,0) 5px solid;
+	text-align:center;
+}
+h3 {
+
+	font-size: 20px;
+	padding: 10px;
+	font-weight: normal;
+	background-color: rgba(0,0,255,0.5);;
+	border-bottom:rgb(0,0,255) 5px solid;
+	text-align:center;
+	
+}
+h4 {
+	font-size: 20px;
+	padding: 10px;
+	font-weight: normal;
+	background-color: rgba(0,255,255,0.5);
+	border-bottom:rgb(0,255,255) 5px solid;
+	text-align:center;
+	
+}
+h5 {
+	font-size: 20px;
+	padding: 10px;
+	font-weight: normal;
+	background-color:  rgba(255,0,255,0.5);
+	border-bottom:rgb(255,0,255) 5px solid;
+	text-align:center;
+
+}
+.say {
+	padding: 6px;
+	margin: 10px ;
+	margin-left: 0px;
+	font-size: 16px;
+	background: rgba(100,200,150,0.1);
+}
+.c_list {
+	list-style: none;
+	padding: 0px;
+	margin: 10px;
+	border-radius: 6px;
+	border: 1px solid #aaa;
+	padding-bottom: 10px;
+}
+.c_list >li {
+	padding: 5px;
+	padding-left: 10px ;
+	margin: 0px;
+	border-bottom: #aaa 1px solid;
+	text-align: left;
+}
+.c_list > li .ico {
+	float: right;
+}
+
+
+
+pre {
+	margin-top: 15px;
+	margin-right: auto;
+	margin-bottom: 15px;
+	margin-left: auto;
+	font-family: 'courier new';
+	font-size: 16px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+	line-height: 20px;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: rgb(221, 221, 221);
+	border-right-color: rgb(221, 221, 221);
+	border-bottom-color: rgb(221, 221, 221);
+	border-left-color: rgb(221, 221, 221);
+	border-image: initial;
+	border-left-width: 4px;
+	background-image: url(../media/codecolorer_bg.gif);
+	background-attachment: initial;
+	background-origin: initial;
+	background-clip: initial;
+	background-color: rgb(251, 251, 251);
+	background-size: initial;
+	padding-top: 10px;
+	padding-right: 15px;
+	padding-bottom: 10px;
+	padding-left: 15px;
+	white-space: pre-wrap;
+	word-break: break -all;
+	word-wrap: break -word;
+	background-position: 50% 0%;
+	background-repeat: initial initial;
+}
+#page {
+	border-radius: 6px;
+	border: 2px solid #8AC007;
+	padding: 10px;
+	margin: 10px;
+	margin-top: 50px;
+}
+#bar {
+	border-radius: 6px;
+	border: 1px solid rgb(174, 178, 185);
+	background-color: #F5F5F5;
+	text-align: center;
+	padding: 0px;
+	margin: 0px;
+}
+
+p {
+	border-radius: 6px;
+	background-color: rgba(245,255,200,0.1);
+	text-align: center;
+	padding: 10px;
+	margin: 10px;
+}
+
+#menu {
+	display: none;
+	position: fixed;
+	margin: 0px;
+	right: 0px ;
+	top : 43px;
+}
+#ctrl_menu {
+	position: fixed;
+	right: 10px;
+	top: 10px;
+}

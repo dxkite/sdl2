@@ -1,0 +1,96 @@
+<!DOCTYPE html><html>
+<head>
+<!--  
+Copyright © dxkite all rights reserved.
+Copyright © 2014-2015 冯世昌 保留所有权利  
+ -->
+<meta content="text/html;charset=UTF-8" http-equiv="Content-Type">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+</head><body bgcolor="#b3ffb3" >
+<title>图片处理</title>
+<h2>旋转缩放</h2>
+之前我们说过函数
+<b><i>SDL_RenderCopy()</i></b>还有个兄弟。那就是：
+<pre><b> extern DECLSPEC 
+int SDLCALL SDL_RenderCopyEx(
+ SDL_Renderer * renderer,
+ SDL_Texture * texture,
+  const SDL_Rect * srcrect, 
+  const SDL_Rect *dstrect,
+  const double angle,
+  const SDL_Point *center, 
+  const SDL_RendererFlip flip
+  );
+<i></i></b></pre>
+初次看到它，你会觉得它参数列表也太长吧，其实不然，去过可以，我们还可以把它弄的更长，废话不说了，让我们来看看它的参数。与<b><i>SDL_RenderCopy()</i></b>相比他多了3个参数：angle角度，一个双精度的浮点数。；center中心，一个SDL_Point类型的 相信大家都是聪明的孩纸。看上面的函数申明应该参数。用来储存旋转中心；最后一个是一个标记，他也是用来旋转的，有以下3种模式：
+<ul Type="Square">
+	<Li> SDL_FLIP_HORIZONTAL 水平旋转
+	 <Li>SDL_FLIP_VERTICAL 垂直翻转
+	 <Li>SDL_FLIP_NONE 不做任何处理
+</ul>
+想必，怎么用应该可以猜出来了，那么就让我们来验证一下吧：
+<pre><b><i>int SpinBiltTexture
+(int x, int y,
+ SDL_Texture * Draw_Texture,
+ SDL_Renderer * Draw_Render,
+ bool zoom = false,
+  float extent = 1.0, 
+  double angle = 0.0, 
+  int cx =-1, int cy = -1)
+{</i></b></pre>先是申明，本次什么我们也包含了一个双精度浮点数angle，对应的是旋转角度，还有整型的cx,cy用来设置其旋转中心，这里被初始化为-1;至于为什么？接下来再说。还有两个参数是缩放用的一个<b><i>bool</i></b>类型。用来设置是否对图片进行缩放，还有一个整型的extent用来设置缩放比例。
+<pre><b><i>	SDL_Rect Draw_Render_Rect;
+	Draw_Render_Rect.x = x;
+	Draw_Render_Rect.y = y;
+
+	int w = 0, h = 0;
+	SDL_QueryTexture(Draw_Texture, NULL, NULL, &w, &h);</i></b></pre>这里跟前面的没什么区别。
+	<pre><b><i>	if (extent < 0)
+	{
+		extent =1.0;
+	}</i></b></pre>这个是用来检验缩放恩比例是否合理。如果不合理的话，出始化为1.0既不进行缩放。
+	<pre><b><i>	if (zoom)
+	{
+		Draw_Render_Rect.w = w * extent;
+		Draw_Render_Rect.h = h * extent;
+	}	
+    else
+	{
+		Draw_Render_Rect.w = w;
+		Draw_Render_Rect.h = h;
+	}</i></b></pre>
+	这里是使用缩放的部分，由上节可以知道，矩形
+<b><i>Draw_Render_Rect</i></b>的存在，我现在为大家说明一下它是干嘛用的。与<b><i>srcrect</i></b>一样，它是用来描述位置信息的矩形，不过是描述图片在窗口上的位置。即贴在窗口上图片的信息，在这里我们可以通过设置其长和宽来实现对图片进行缩放，第一二课的图片都是没有设置这个参数。所以图片都被拉伸至全屏了。
+<br>接下来这部分是用来实现旋转的：
+<pre><b><i>if ((cx != -1) && (cy != -1))
+{
+	SDL_Point center;
+	center.x = cx;
+	center.x = cx;</i></b></pre>
+这里创了一个
+<b><i>SDL_Point</i></b>
+来接受旋转中心的信息。
+<pre><b><i>
+		SDL_RenderCopyEx(
+		Draw_Render, 
+		Draw_Texture, NULL,
+	    &Draw_Render_Rect,
+	    angle,
+ 	   &center,
+	SDL_FLIP_NONE);
+	}
+	else
+	{
+		SDL_RenderCopyEx(
+		Draw_Render,
+	    Draw_Texture, NULL,
+		&Draw_Render_Rect, 
+		angle, NULL, SDL_FLIP_NONE);
+	}
+}
+</i></b></pre>
+函数最后的标记我们都是用<b><i>SDL_FLIP_NONE</i></b>的，因为没有什么重要的事，直接加载图片就好。一个支持缩放和旋转的函数也就出炉了。
+<br><a href="http://pan.baidu.com/share/link?shareid=3481470553&uk=1413256347">本课源码下载</a><br>
+对于以上教程有什么意见过建议。欢迎欢迎上贴吧<a href="http://tieba.baidu.com/f?&kw=dxkite&jump_tieba_native=1&mo_device=1">@DXkite</a>
+<hr><h3>DXkite 于2014-6-22</h3>
+</body></html>

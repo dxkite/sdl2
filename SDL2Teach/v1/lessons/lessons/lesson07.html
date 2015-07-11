@@ -1,0 +1,79 @@
+<!DOCTYPE html><html>
+<head>
+<!--  
+Copyright © dxkite all rights reserved.
+Copyright © 2014-2015 冯世昌 保留所有权利  
+ -->
+<meta content="text/html;charset=UTF-8" http-equiv="Content-Type">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+</head><body bgcolor="#b3ffb3" >
+<title>音频播放</title>
+<h2>音频播放</h2>
+一个游戏除了精美的画面效果，还要有与之相对的音效。
+<br>本节，我们要讲解的是音效和背景音乐的播放。
+SDL2本身并没有音频播放的函数，那么就需要我们添加一个扩展库
+<pre><b><i>#include "SDL2/SDL_mixer.h"</i></b></pre>
+此库中包含了与音频播放有关的函数，其中主要的函数有打开音频播放的函数：
+<pre><b><i>extern DECLSPEC int SDLCALL Mix_OpenAudio(int frequency, Uint16 format, int channels, int chunksize);
+</i></b></pre>
+<br>参数说明：
+<br>frequency 播放频率 常用22050
+<br>format 播放格式 常用MIX_DEFAULT_FORMAT 
+<br>channels 播放通道 随意int
+<br>chunksize 样本大小 常用4096
+<br>加载音频的函数
+<pre><b><i>extern DECLSPEC Mix_Chunk * SDLCALL Mix_LoadWAV_RW(SDL_RWops *src, int freesrc);
+#define Mix_LoadWAV(file)   Mix_LoadWAV_RW(SDL_RWFromFile(file, "rb"), 1)
+extern DECLSPEC Mix_Music * SDLCALL Mix_LoadMUS(const char *file);</i></b></pre>
+释放函数
+<pre><b><i>extern DECLSPEC void SDLCALL Mix_FreeChunk(Mix_Chunk *chunk);
+extern DECLSPEC void SDLCALL Mix_FreeMusic(Mix_Music *music);
+</i></b></pre>
+播放函数
+<pre><b><i>
+#define Mix_PlayChannel(channel,chunk,loops) Mix_PlayChannelTimed(channel,chunk,loops,-1)
+
+extern DECLSPEC int SDLCALL Mix_PlayChannelTimed(int channel, Mix_Chunk *chunk, int loops, int ticks);
+
+extern DECLSPEC int SDLCALL Mix_PlayMusic(Mix_Music *music, int loops);</i></b></pre>
+<br>参数说明
+<br>loops 循环播放次数
+以及两个储存音频的结构体
+<br>ticks 运转 常用-1
+暂时没摸索出来干嘛用的。
+<pre><b><i>typedef struct Mix_Chunk {
+    int allocated;
+    Uint8 *abuf;
+    Uint32 alen;
+    Uint8 volume;   
+} Mix_Chunk;
+</i></b></pre>
+和
+<pre><b><i>typedef struct _Mix_Music Mix_Music;
+</i></b></pre>
+在使用以上函数前，有几个需要注意的地方。
+<UL>
+<Li>必须在使用所有函数前使用OpenAudio函数；后果：导致函数失效，在加载函数使用后无法对Mix_Chunk和Mix_Music初始化，即一直为空。
+<Li>不得将Free函数与加载函数放在同一个函数内，即使里面包含了播放函数；后果：音频在播放前被释放，导致播放失败。
+</UL>
+还有一些要注意的是，由于解码器等原因，导致有些格式的音频无法播放。目前Android平台已知的为mp3格式的文件。在使用音频播放的时候最好是使用wav格式音频。当然，在Linux内核的平台ogg也比较通用，比如Android。内置音频基本为ogg格式。
+<br>接下来看一个音频播放的示列：
+<pre><b><i>int Play()
+{
+	Mix_Chunk *Chunk = NULL;
+	Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096);
+	Chunk= Mix_LoadWAV("/mnt/sdcard/First.wav");
+	Mix_PlayChannelTimed(1, Chunk, 0, -1 );
+}</i></b></pre>
+使用流程:
+<Li>先申明一个Mix_Chunk*类型
+<Li>打开播放器
+<Li>对音频加载
+<Li>播放
+<Li>释放，在这里并没有我用释放函数，原因已经说过了。
+<br>更高级的播放方式敬请期待高级教程。
+<br><a href="http://pan.baidu.com/share/link?shareid=3481470553&uk=1413256347">本课源码下载</a><br>
+对于以上教程有什么意见过建议。欢迎欢迎上贴吧< href="http://tieba.baidu.com/f?&kw=dxkite&jump_tieba_native=1&mo_device=1">@DXkite</a>
+<hr><h3>DXkite 于2014-6-25</h3>
+</body></html>

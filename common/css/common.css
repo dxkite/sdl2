@@ -1,0 +1,165 @@
+/*
+*  SDL2教程网页组件
+*  06:05 7月11日 2015
+*  © DXkite
+*/
+* {
+	margin: 0px;
+	padding: 0px;
+}
+#computer,#phone {
+	display: none;
+}
+#page {
+	border-radius: 6px;
+	border: 2px solid #8AC007;
+	padding: 10px;
+	margin: 10px;
+	margin-top: 50px;
+}
+.bar {
+	border-radius: 6px;
+	border: 1px solid rgb(174, 178, 185);
+	background-color: #F5F5F5;
+	text-align: center;
+	padding: 10px;
+	margin: 10px;
+	}
+.bar2 {
+	border-radius: 6px;
+	border: 1px solid rgb(174, 178, 185);
+	background-color: rgba(245,245,245,0.3);
+	text-align: center;
+	padding: 10px;
+	margin: 10px;
+}
+
+
+a:link {
+	color: rgb(102, 102, 102);
+	text-decoration: none;
+}
+a:visited {
+	color: purple;
+	text-decoration: none;
+}
+a:hover {
+	color: red;
+	text-decoration: none;
+}
+#next {
+	position: fixed;
+	border-radius: 6px;
+	/* border: 1px solid rgb(174, 178, 185);*/
+	background-color: rgba(255,255,0,0.5);
+	text-align: center;
+	padding: 10px;
+	margin: 10px;
+	right: 0px;
+	bottom: 0px;
+}
+#prev {
+	position: fixed;
+	border-radius: 6px;
+	/* border: 1px solid rgb(174, 178, 185);*/
+	background-color: rgba(255,255,0,0.5);
+	text-align: center;
+	padding: 10px;
+	margin: 10px;
+	left: 0px;
+	bottom: 0px;
+}
+#prev a,#next a {
+	padding-top: 0px;
+	padding-right: 25px;
+	padding-bottom: 0px;
+	padding-left: 25px;
+}
+
+#title {
+	font-size: 20px;
+	background: rgba(138,192,7,0.8);
+	padding: 10px;
+	text-align: center;
+	position: fixed;
+	top: 0px;
+	right: 0px;
+	width: 100%;
+}
+
+.menu_list {
+	list-style: none;
+	padding: 0px;
+	margin: 0px;
+	background: rgba(246,246,246,0.6);
+}
+.menu_list :hover {
+	background: #87CEFA;
+}
+.menu_list>li {
+	padding: 5px;
+	margin: 0px;
+	border-bottom: #000 1px solid;
+	text-align: center;
+}
+.menu_ico
+{
+	height:16;
+	width:16;
+}
+
+#gotop 
+{
+	font-size: 10px;
+	width: 50%;
+ 	margin-top: 0px;
+	text-align: center;
+}
+
+.lk1
+{
+	font-size: 10px;
+	width: 50%;
+ 	margin-top: 0px;
+	text-align: center;
+}
+
+.img_box
+{
+text-align:center;
+}
+
+.img_box img
+{
+   text-align:center;
+   background-size:100% 100%;
+   background-repeat:no-repeat;
+}
+#img_view
+{
+	position:fixed;
+	margin:0px;
+	padding:10px;
+	display:none;
+	top:0;
+	left:0;
+right:0px;
+bottom:0px;	background-color:rgba(0,0,0,0.4);
+}
+
+#img_view img
+{
+	width:90%;
+	height:90%;
+}
+
+#cpr {
+	border-radius: 6px;
+	border: 1px solid rgb(174, 178, 185);
+	padding: 10px;
+	margin: 10px;
+	text-align: center;
+	font-size: 12px ;
+	background: #F5F5F5;
+	
+}

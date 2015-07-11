@@ -1,0 +1,186 @@
+﻿<html >
+<head>
+  <!--  
+Copyright © dxkite all rights reserved.
+SDL2 Teach Simple Web Page Code
+SDL2教程简单网页代码
+Copyright © 2014 冯世昌 保留所有权利  
+ -->
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+</head>
+<body>
+
+<!-- CoolFormat Source Formatter http://blog.csdn.net/akof1314 --><div style="width:100%;border:1px #e3e3e3 solid;"><div style="width:100%;font-family:'DejaVu Sans Mono', 'Courier New';font-size:14px;border-bottom:1px solid #e3e3e3;margin-top:5px;color:#000000;">&nbsp;C++ Code&nbsp;By DXkite</div><table style="width:100%;font-family:'DejaVu Sans Mono', 'Courier New';font-size:14px;vertical-align:text-top;line-height:18px;" border="0" cellspacing="0" cellpadding="0"><tr><td style="color:#008284;background-color:#e3e3e3;vertical-align:text-top;"><div style="margin:7px;text-align:right;white-space:nowrap;"><nobr>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>33<br>34<br>35<br>36<br>37<br>38<br>39<br>40<br>41<br>42<br>43<br>44<br>45<br>46<br>47<br>48<br>49<br>50<br>51<br>52<br>53<br>54<br>55<br>56<br>57<br>58<br>59<br>60<br>61<br>62<br>63<br>64<br>65<br>66<br>67<br>68<br>69<br>70<br>71<br>72<br>73<br>74<br>75<br>76<br>77<br>78<br>79<br>80<br>81<br>82<br>83<br>84<br>85<br>86<br>87<br>88<br>89<br>90<br>91<br>92<br>93<br>94<br>95<br>96<br>97<br>98<br>99<br>100<br>101<br>102<br>103<br>104<br>105<br>106<br>107<br>108<br>109<br>110<br>111<br>112<br>113<br>114<br>115<br>116<br>117<br>118<br>119<br>120<br>121<br>122<br>123<br>124<br>125<br>126<br>127<br>128<br>129<br>130<br>131<br>132<br>133<br>134<br>135<br>136<br>137<br>138<br>139<br>140<br>141<br>142<br>143<br>144<br>145<br>146<br>147<br>148<br>149<br>150<br>151<br>152<br>153<br>154<br>155<br>156<br>157<br>158<br>159<br>160<br>161<br>162<br>163<br>164<br>165<br>166<br>167<br>168<br>169<br>170<br></nobr></div></td><td style="background-color:#008284;padding:1px;"><div style="border:1px #008284 solid;"></div></td><td style="background-color:#efefef;width:100%;vertical-align:text-top;color:#000000;"><div style="margin:7px;"><span style="color:#168000;">/*<BR>
+文件名:nc_6_1.cpp<BR>
+标识:SDL2教程源码<BR>
+描述:播放音效<BR>
+<BR>
+作者:冯世昌<BR>
+创建时间:2014年12月7日<BR>
+联系方式:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;QQ:670337693<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;Email:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dxkite@163.com<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;670337693@qq.com<BR>
+版权申明:&nbsp;&nbsp;&nbsp;<BR>
+a.使用者可以随时利用本文件创建其它文件.<BR>
+b.使用者可以随时修改文件有效代码内容.<BR>
+c.使用者不得修改版权申明，版权归文件创建者所有.<BR>
+d.文件使用者本人承担使用本文档后的所有法律责任,本件创建者不为您的文件内容承担任何法律责任.<BR>
+e.如有修改或重写发布时请保留本部分内容<BR>
+Copyright&nbsp;©&nbsp;DXkite&nbsp;2014&nbsp;all&nbsp;rights&nbsp;reserved.<BR>
+*/</span><span style="color:#000000;"><BR>
+<BR>
+</span><span style="color:#800000;">#include</span><span style="color:#000000;">&nbsp;&lt;SDL2/SDL.h&gt;<BR>
+</span><span style="color:#800000;">#include</span><span style="color:#000000;">&nbsp;&lt;SDL2/SDL_mixer.h&gt;<BR>
+</span><span style="color:#168000;">//&nbsp;窗口<BR>
+</span><span style="color:#000000;">SDL_Window&nbsp;*Window&nbsp;=&nbsp;</span><span style="color:#800000;">NULL</span><span style="color:#000000;">;<BR>
+</span><span style="color:#168000;">//渲染器<BR>
+</span><span style="color:#000000;">SDL_Renderer&nbsp;*Renderer&nbsp;=&nbsp;</span><span style="color:#800000;">NULL</span><span style="color:#000000;">;<BR>
+</span><span style="color:#168000;">//纹理贴图<BR>
+</span><span style="color:#000000;">SDL_Texture&nbsp;*Texture&nbsp;=&nbsp;</span><span style="color:#800000;">NULL</span><span style="color:#000000;">;<BR>
+<BR>
+</span><span style="color:#168000;">//&nbsp;图片表面<BR>
+</span><span style="color:#000000;">SDL_Surface&nbsp;*Surface&nbsp;=&nbsp;</span><span style="color:#800000;">NULL</span><span style="color:#000000;">;<BR>
+<BR>
+</span><span style="color:#168000;">//Mix_Chunk&nbsp;*Chunk[5]&nbsp;=&nbsp;NULL;<BR>
+</span><span style="color:#000000;"><BR>
+<BR>
+<BR>
+</span><span style="color:#800000;">class</span><span style="color:#000000;">&nbsp;player&nbsp;{<BR>
+&nbsp;&nbsp;Mix_Chunk&nbsp;*Chunk[</span><span style="color:#ff0000;">4</span><span style="color:#000000;">];<BR>
+</span><span style="color:#800000;">public</span><span style="color:#000000;">:<BR>
+&nbsp;&nbsp;&nbsp;player()&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;init();<BR>
+<BR>
+&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;~player()&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;exit();<BR>
+<BR>
+&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;</span><span style="color:#c00048;">void</span><span style="color:#000000;">&nbsp;init()&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#168000;">//Mix_Init(int&nbsp;flags);<BR>
+</span><span style="color:#000000;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#168000;">//extern&nbsp;DECLSPEC&nbsp;int&nbsp;SDLCALL&nbsp;Mix_OpenAudio(int&nbsp;frequency,&nbsp;Uint16&nbsp;format,&nbsp;int&nbsp;channels,&nbsp;int&nbsp;chunksize);<BR>
+</span><span style="color:#000000;">&nbsp;&nbsp;&nbsp;&nbsp;Mix_OpenAudio(MIX_DEFAULT_FREQUENCY,&nbsp;MIX_DEFAULT_FORMAT,&nbsp;MIX_DEFAULT_CHANNELS,&nbsp;</span><span style="color:#ff0000;">2048</span><span style="color:#000000;">);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#800000;">for</span><span style="color:#000000;">&nbsp;(</span><span style="color:#c00048;">int</span><span style="color:#000000;">&nbsp;i&nbsp;=&nbsp;</span><span style="color:#ff0000;">0</span><span style="color:#000000;">;&nbsp;i&nbsp;&lt;&nbsp;</span><span style="color:#ff0000;">4</span><span style="color:#000000;">;&nbsp;++i)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chunk[i]&nbsp;=&nbsp;</span><span style="color:#800000;">NULL</span><span style="color:#000000;">;<BR>
+<BR>
+&nbsp;&nbsp;}&nbsp;</span><span style="color:#c00048;">int</span><span style="color:#000000;">&nbsp;load()&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;Chunk[</span><span style="color:#ff0000;">0</span><span style="color:#000000;">]&nbsp;=&nbsp;Mix_LoadWAV(</span><span style="color:#1600ff;">"Gunfire.wav"</span><span style="color:#000000;">);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;Chunk[</span><span style="color:#ff0000;">1</span><span style="color:#000000;">]&nbsp;=&nbsp;Mix_LoadWAV(</span><span style="color:#1600ff;">"Bang.wav"</span><span style="color:#000000;">);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;Chunk[</span><span style="color:#ff0000;">2</span><span style="color:#000000;">]&nbsp;=&nbsp;Mix_LoadWAV(</span><span style="color:#1600ff;">"Fanfare.wav"</span><span style="color:#000000;">);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;Chunk[</span><span style="color:#ff0000;">3</span><span style="color:#000000;">]&nbsp;=&nbsp;Mix_LoadWAV(</span><span style="color:#1600ff;">"peow.wav"</span><span style="color:#000000;">);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#800000;">for</span><span style="color:#000000;">&nbsp;(</span><span style="color:#c00048;">int</span><span style="color:#000000;">&nbsp;i&nbsp;=&nbsp;</span><span style="color:#ff0000;">0</span><span style="color:#000000;">;&nbsp;i&nbsp;&lt;&nbsp;</span><span style="color:#ff0000;">4</span><span style="color:#000000;">;&nbsp;++i)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#800000;">if</span><span style="color:#000000;">&nbsp;(Chunk[i]&nbsp;==&nbsp;</span><span style="color:#800000;">NULL</span><span style="color:#000000;">)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#800000;">return</span><span style="color:#000000;">&nbsp;i;<BR>
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;</span><span style="color:#c00048;">void</span><span style="color:#000000;">&nbsp;play(</span><span style="color:#c00048;">int</span><span style="color:#000000;">&nbsp;i)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#168000;">//extern&nbsp;DECLSPEC&nbsp;int&nbsp;SDLCALL&nbsp;Mix_PlayChannelTimed(int&nbsp;channel,&nbsp;Mix_Chunk&nbsp;*chunk,&nbsp;int&nbsp;loops,&nbsp;int&nbsp;ticks);<BR>
+</span><span style="color:#000000;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#168000;">/*&nbsp;Play&nbsp;an&nbsp;audio&nbsp;chunk&nbsp;on&nbsp;a&nbsp;specific&nbsp;channel.<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;the&nbsp;specified&nbsp;channel&nbsp;is&nbsp;-1,&nbsp;play&nbsp;on&nbsp;the&nbsp;first&nbsp;free&nbsp;channel.<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;'loops'&nbsp;is&nbsp;greater&nbsp;than&nbsp;zero,&nbsp;loop&nbsp;the&nbsp;sound&nbsp;that&nbsp;many&nbsp;times.<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;'loops'&nbsp;is&nbsp;-1,&nbsp;loop&nbsp;inifinitely&nbsp;(~65000&nbsp;times).<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns&nbsp;which&nbsp;channel&nbsp;was&nbsp;used&nbsp;to&nbsp;play&nbsp;the&nbsp;sound.<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/</span><span style="color:#000000;"><BR>
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#800000;">if</span><span style="color:#000000;">&nbsp;(i&nbsp;&gt;&nbsp;</span><span style="color:#ff0000;">3</span><span style="color:#000000;">&nbsp;||&nbsp;i&nbsp;&lt;&nbsp;</span><span style="color:#ff0000;">0</span><span style="color:#000000;">)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#800000;">return</span><span style="color:#000000;">;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;Mix_PlayChannelTimed(</span><span style="color:#ff0000;">1</span><span style="color:#000000;">,&nbsp;Chunk[i],&nbsp;</span><span style="color:#ff0000;">0</span><span style="color:#000000;">,&nbsp;-</span><span style="color:#ff0000;">1</span><span style="color:#000000;">);<BR>
+&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;</span><span style="color:#c00048;">void</span><span style="color:#000000;">&nbsp;exit()&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#800000;">for</span><span style="color:#000000;">&nbsp;(</span><span style="color:#c00048;">int</span><span style="color:#000000;">&nbsp;i&nbsp;=&nbsp;</span><span style="color:#ff0000;">0</span><span style="color:#000000;">;&nbsp;i&nbsp;&lt;&nbsp;</span><span style="color:#ff0000;">4</span><span style="color:#000000;">;&nbsp;++i)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mix_FreeChunk(Chunk[i]);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;Mix_Quit();<BR>
+&nbsp;&nbsp;}<BR>
+};<BR>
+<BR>
+</span><span style="color:#c00048;">int</span><span style="color:#000000;">&nbsp;Init()<BR>
+{<BR>
+&nbsp;&nbsp;SDL_Init(SDL_INIT_VIDEO);<BR>
+&nbsp;&nbsp;</span><span style="color:#168000;">//&nbsp;创建窗口<BR>
+</span><span style="color:#000000;">&nbsp;&nbsp;Window&nbsp;=&nbsp;SDL_CreateWindow(</span><span style="color:#1600ff;">"SDL_Window"</span><span style="color:#000000;">,&nbsp;SDL_WINDOWPOS_CENTERED,&nbsp;SDL_WINDOWPOS_CENTERED,&nbsp;</span><span style="color:#ff0000;">240</span><span style="color:#000000;">,&nbsp;</span><span style="color:#ff0000;">400</span><span style="color:#000000;">,&nbsp;SDL_WINDOW_SHOWN);<BR>
+&nbsp;&nbsp;</span><span style="color:#800000;">if</span><span style="color:#000000;">&nbsp;(Window&nbsp;==&nbsp;</span><span style="color:#800000;">NULL</span><span style="color:#000000;">)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#800000;">return</span><span style="color:#000000;">&nbsp;-</span><span style="color:#ff0000;">1</span><span style="color:#000000;">;<BR>
+&nbsp;&nbsp;</span><span style="color:#168000;">//创建渲染器<BR>
+</span><span style="color:#000000;">&nbsp;&nbsp;Renderer&nbsp;=&nbsp;SDL_CreateRenderer(Window,&nbsp;-</span><span style="color:#ff0000;">1</span><span style="color:#000000;">,&nbsp;SDL_RENDERER_ACCELERATED);<BR>
+&nbsp;&nbsp;</span><span style="color:#800000;">if</span><span style="color:#000000;">&nbsp;(Renderer&nbsp;==&nbsp;</span><span style="color:#800000;">NULL</span><span style="color:#000000;">)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#800000;">return</span><span style="color:#000000;">&nbsp;-</span><span style="color:#ff0000;">2</span><span style="color:#000000;">;<BR>
+&nbsp;&nbsp;</span><span style="color:#800000;">return</span><span style="color:#000000;">&nbsp;</span><span style="color:#ff0000;">0</span><span style="color:#000000;">;<BR>
+}<BR>
+<BR>
+</span><span style="color:#c00048;">void</span><span style="color:#000000;">&nbsp;Destroy()<BR>
+{<BR>
+&nbsp;&nbsp;SDL_FreeSurface(Surface);<BR>
+&nbsp;&nbsp;SDL_DestroyWindow(Window);<BR>
+&nbsp;&nbsp;SDL_DestroyTexture(Texture);<BR>
+&nbsp;&nbsp;SDL_DestroyRenderer(Renderer);<BR>
+&nbsp;&nbsp;SDL_Quit();<BR>
+}<BR>
+<BR>
+<BR>
+</span><span style="color:#c00048;">int</span><span style="color:#000000;">&nbsp;main(</span><span style="color:#c00048;">int</span><span style="color:#000000;">&nbsp;args,&nbsp;</span><span style="color:#c00048;">char</span><span style="color:#000000;">&nbsp;*argv[])<BR>
+{<BR>
+&nbsp;&nbsp;</span><span style="color:#168000;">//初始化<BR>
+</span><span style="color:#000000;">&nbsp;&nbsp;</span><span style="color:#800000;">if</span><span style="color:#000000;">&nbsp;(Init()&nbsp;!=&nbsp;</span><span style="color:#ff0000;">0</span><span style="color:#000000;">)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#800000;">return</span><span style="color:#000000;">&nbsp;-</span><span style="color:#ff0000;">1</span><span style="color:#000000;">;<BR>
+&nbsp;&nbsp;</span><span style="color:#168000;">//状态标志<BR>
+</span><span style="color:#000000;">&nbsp;&nbsp;</span><span style="color:#c00048;">bool</span><span style="color:#000000;">&nbsp;Quit&nbsp;=&nbsp;</span><span style="color:#800000;">false</span><span style="color:#000000;">;<BR>
+</span><span style="color:#168000;">//事件储存器<BR>
+</span><span style="color:#000000;">&nbsp;&nbsp;SDL_Event&nbsp;Event;<BR>
+&nbsp;&nbsp;player&nbsp;play;<BR>
+&nbsp;&nbsp;play.load();<BR>
+<BR>
+&nbsp;&nbsp;</span><span style="color:#168000;">//获取键盘焦点<BR>
+</span><span style="color:#000000;">&nbsp;&nbsp;Window&nbsp;=&nbsp;SDL_GetKeyboardFocus();<BR>
+<BR>
+&nbsp;&nbsp;</span><span style="color:#168000;">//打开键盘(手机专用)<BR>
+</span><span style="color:#000000;">&nbsp;&nbsp;SDL_StartTextInput();<BR>
+&nbsp;&nbsp;</span><span style="color:#800000;">while</span><span style="color:#000000;">&nbsp;(!Quit)&nbsp;{<BR>
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#168000;">//将事件储存至储存器中<BR>
+</span><span style="color:#000000;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#800000;">while</span><span style="color:#000000;">&nbsp;(SDL_PollEvent(&Event)&nbsp;!=&nbsp;</span><span style="color:#ff0000;">0</span><span style="color:#000000;">)&nbsp;{<BR>
+<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#800000;">if</span><span style="color:#000000;">&nbsp;(Event.type&nbsp;==&nbsp;SDL_KEYDOWN)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#800000;">switch</span><span style="color:#000000;">&nbsp;(Event.key.keysym.sym)&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#800000;">case</span><span style="color:#000000;">&nbsp;SDLK_UP:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#168000;">//😊Play();<BR>
+</span><span style="color:#000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;play.play(</span><span style="color:#ff0000;">0</span><span style="color:#000000;">);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#800000;">break</span><span style="color:#000000;">;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#800000;">case</span><span style="color:#000000;">&nbsp;SDLK_DOWN:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#168000;">//Play();<BR>
+</span><span style="color:#000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;play.play(</span><span style="color:#ff0000;">1</span><span style="color:#000000;">);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#800000;">break</span><span style="color:#000000;">;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#800000;">case</span><span style="color:#000000;">&nbsp;SDLK_LEFT:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#168000;">//Play();<BR>
+</span><span style="color:#000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;play.play(</span><span style="color:#ff0000;">2</span><span style="color:#000000;">);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#800000;">break</span><span style="color:#000000;">;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#800000;">case</span><span style="color:#000000;">&nbsp;SDLK_RIGHT:<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#168000;">//&nbsp;&nbsp;&nbsp;Play();<BR>
+</span><span style="color:#000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;play.play(</span><span style="color:#ff0000;">3</span><span style="color:#000000;">);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#800000;">break</span><span style="color:#000000;">;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#168000;">//菜单键退出……<BR>
+</span><span style="color:#000000;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#800000;">case</span><span style="color:#000000;">&nbsp;SDLK_MENU:{<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#168000;">//&nbsp;dbg("MENU");<BR>
+</span><span style="color:#000000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Quit&nbsp;=&nbsp;</span><span style="color:#800000;">true</span><span style="color:#000000;">;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:#800000;">break</span><span style="color:#000000;">;<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;}<BR>
+&nbsp;&nbsp;Destroy();<BR>
+&nbsp;&nbsp;</span><span style="color:#800000;">return</span><span style="color:#000000;">&nbsp;</span><span style="color:#ff0000;">0</span><span style="color:#000000;">;<BR>
+}</span></div></td></tr></table></div>
+</body>
+</html>

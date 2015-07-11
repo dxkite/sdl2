@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!DOCTYPE html><html>
+<head>
+<!--  
+Copyright © dxkite all rights reserved.
+Copyright © 2014-2015 冯世昌 保留所有权利  
+ -->
+<meta content="text/html;charset=UTF-8" http-equiv="Content-Type">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+</head><body bgcolor="#b3ffb3" >
+<title>显示图片</title>
+经过昨天的第一课，相信大家对SDL2的绘图方式有了一定的了解了吧？
+这是我的理解：
+<pre><b><i>SDL_Surface*->SDL_Texture*->SDL_Renderer*->SDL_Window*</i></b></pre>
+今天我们要学习的是显示图片，，呃呃，其实昨天就显示了一张图片了，，今天我们要说的是显示非bmp格式的图片。SDL.h内没有定义其他图片的加载函数，所以，我们要包含:
+<pre><b><i>#include "SDL2/SDL_image.h"</i></b></pre>
+这个头文件扩展了图片加载函数，可以加载多种图片如 png,bmp,jpg,jpge，gif等格式的图片。
+<br>在使用前，我觉得还是初始化一下好玩一些。虽然没有初始化好像也没有问题。
+<pre><b><i>IMG_Init(IMG_INIT_PNG);</i></b></pre>好像怎么弄都没有问题。下面是它的申明：<pre><b><i>typedef enum
+{
+    IMG_INIT_JPG = 0x00000001,
+    IMG_INIT_PNG = 0x00000002,
+    IMG_INIT_TIF = 0x00000004,
+    IMG_INIT_WEBP = 0x00000008
+} IMG_InitFlags; 
+extern DECLSPEC int SDLCALL IMG_Init(int flags); </i></b></pre>
+哦！还有个退出函数
+<pre><b><i>
+extern DECLSPEC void SDLCALL IMG_Quit(void); </i></b></pre>
+嗯把这个也加进去吧。
+<br>接下来，让我们需要使用加载函数，这事定义在SDL_image.h里的加载函数：
+<pre><b><i>extern DECLSPEC SDL_Surface * SDLCALL IMG_Load(const char *file);</i></b></pre>
+在我们昨天写的代码里把
+<pre><b><i>Surface = SDL_LoadBMP("/mnt/sdcard/hello.bmp");</i></b></pre>改成
+<pre><b><i>Surface = IMG_Load("/mnt/sdcard/source/background.png");</i></b></pre>
+眼尖的同学可能发现我的地址改了，嘿嘿，把资源文件放在一个文件夹里是一个好习惯哦！
+<br>然后运行：
+<br><img src="../../assets/20140622_115330.png" alt="运行时图片" align=center width="240" height="400" >
+<br>哦！显示出来了，这次不用担心图片格式问题了。加载函数还有一种：
+<pre><b><i></i>extern DECLSPEC SDL_Texture * SDLCALL IMG_LoadTexture(SDL_Renderer *renderer, const char *file);</b></pre>这个是直接加载成了Texture的，很方便对吧，省了几个函数。
+<br>在SDL_image.h里还有几个函数。
+<pre><b><i>extern DECLSPEC int SDLCALL IMG_isICO(SDL_RWops *src);</i></b></pre>都是这样一类的，好像现在也没用到过它。。
+今天就到这里了，还比较简单哈！下一课就有得写了。
+<br><a href="http://pan.baidu.com/share/link?shareid=3481470553&uk=1413256347">本课源码下载</a><br>
+对于以上教程有什么意见过建议。欢迎欢迎上贴吧<a href="http://tieba.baidu.com/f?&kw=dxkite&jump_tieba_native=1&mo_device=1">@DXkite</a>
+<hr><h3>DXkite 于2014-6-22</h3>
+</body></html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html><html>
+<head>
+<!--  
+Copyright © dxkite all rights reserved.
+Copyright © 2014-2015 冯世昌 保留所有权利  
+ -->
+<meta content="text/html;charset=UTF-8" http-equiv="Content-Type">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+</head><body bgcolor="#b3ffb3" >
+<title>新建线程</title>
+<h2>新建线程</h2>
+对于一个游戏，当我在画图的时候想要干其他事怎么办？那么将要用到线程
+<br>用到的头文件
+<pre><b><i>#include "SDL2/SDL_thread.h"</i></b></pre>
+使用结构体
+<pre><b><i>struct SDL_Thread;
+typedef struct SDL_Thread SDL_Thread;
+</i></b></pre>
+<br>使用函数
+<pre><b><i>
+typedef int (SDLCALL * SDL_ThreadFunction) (void *data);
+</i></b></pre>
+<pre><b><i>extern DECLSPEC SDL_Thread *SDLCALL
+SDL_CreateThread(SDL_ThreadFunction fn, const char *name, void *data,
+pfnSDL_CurrentBeginThread pfnBeginThread,pfnSDL_CurrentEndThread pfnEndThread);
+</i></b></pre>大家也看到了，那后面有两个不知道是干嘛东西，我们常使用的是它的预定义版
+<pre><b><i>#define SDL_CreateThread(fn, name, data) SDL_CreateThread(fn, name, data, (pfnSDL_CurrentBeginThread)_beginthreadex, (pfnSDL_CurrentEndThread)_endthreadex)</i></b></pre>
+一个简单的示列：
+<pre><b><i>#include "SDL2/SDL.h"
+#include "SDL2/SDL_thread.h"
+
+int TestThread(void *ptr);
+
+int main(int argc, char *argv[])
+{
+	//主线程
+	SDL_Thread *thread;
+	// 创建先线程并开始
+	thread = SDL_CreateThread(TestThread, "TestThread", (void *)NULL);
+
+	// 等待线程运行完成
+	SDL_WaitThread(thread, NULL);
+	return 1;
+}
+
+int TestThread(void *ptr)
+{
+	//副线程
+	// 各种实现代码......
+}</i></b></pre>
+<Li>在开始时main函数个TestThread两个函数同时运行
+<Li>之后的SDL_WriteThread()调用，主函数将等待TestThreat完成后再继续运行。
+<br><a href="http://pan.baidu.com/share/link?shareid=3481470553&uk=1413256347">本课源码下载</a><br>
+对于以上教程有什么意见过建议。欢迎欢迎上贴吧<a href="http://tieba.baidu.com/f?&kw=dxkite&jump_tieba_native=1&mo_device=1">@DXkite</a>
+<hr><h3>DXkite 于2014-6-22</h3>
+</body></html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--  
+Copyright © dxkite all rights reserved.
+SDL2 Teach Simple Web Page Code
+SDL2教程简单网页代码
+Copyright © 2014 冯世昌 保留所有权利  
+ -->
+<meta content="text/html;charset=UTF-8" http-equiv="Content-Type">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+ <link type="text/css" rel="stylesheet" href="../../css/dxkite.css"/>
+</head>
+<body id=top>
+<title>表面的粘贴</title>
+<h3 id=header>表面的粘贴</h3>
+<div id="content">
+<!--  编辑区  -->
+<div class="textbox">
+<div class=title>粘贴表面</div>
+<p>上一节，我留下了一个函数没有说，那就是
+<code>BlitScaled</code>它输入四个参数，第一个参数是要粘贴(Blit)的源表面，第二个是要粘贴的源表面的区域，如果是填NULL就是全部粘贴，第三个参数是那个被粘贴的目标表面，第四个是被粘贴的区域，如果为NULL则是粘贴到整个目标表面，也就是说这个可以对源表面进行控制，控制源表面粘贴区域的大小，可以通过这个实现缩放效果，它有个兄弟函数<code>BlitSurface</code>不支持这个功能把它禁掉了，多说无益，我们来看看代码(由于之前的代码没有啥变化我们就弄出来了，直接看多出来的部分)
+<p>带缩放功能的Blit函数</p>
+<pre class=code>  //粘贴表面
+  SDL_BlitScaled(Surface, NULL, WindowScreen, NULL);</pre>
+运行程序:<center><a href="../../../code/nc_2_1.cpp.html.html">view code<div><img class=scr src="../../image/3"/></div></a></center>
+<p>不带缩放功能的Blit函数</p><pre class=code>  //粘贴表面
+  SDL_BlitSurface(Surface, NULL, WindowScreen, NULL);</pre>
+运行程序:<center><a href="../../../code/nc_2_2.cpp.html.html">view code<div><img class=scr src="../../image/4"/></div></a></center>
+<p>从运行效果可以看出，第一个的图片拉伸现象明显，第二个则是中规中矩的大小，接下来我们看看图形的剪切效果</p>
+<pre class=code>  //切割和粘贴用的矩形参数
+  SDL_Rect Cut, Box;
+  //切割表面的区域
+  Cut.x = 0;
+  Cut.y = 0;
+  Cut.w = 28;
+  Cut.h = 28;
+
+  //粘贴表面的盒子
+  Box.x = 50;
+  Box.y = 50;
+  Box.w = 100;
+  Box.h = 100;
+
+  //粘贴表面
+  SDL_BlitSurface(Surface, &Cut, WindowScreen, &Box);</pre><p>运行程序:</p>
+<center><a href="../../../code/nc_2_3.cpp.html">view code<div><img class=scr src="../../image/5"/></div></a></center>
+<p>可以看到一辆小坦克静静的停在那里(太小了)，没有被缩放，下面看看能缩放的:</p><pre class=code>  //切割和粘贴用的矩形参数
+  SDL_Rect Cut, Box;
+  //切割表面的区域
+  Cut.x = 0;
+  Cut.y = 0;
+  Cut.w = 28;
+  Cut.h = 28;
+
+  //粘贴表面的盒子
+  Box.x = 50;
+  Box.y = 50;
+  Box.w = 100;
+  Box.h = 100;
+
+  //粘贴表面
+  SDL_BlitScaled(Surface, &Cut, WindowScreen, &Box);</pre><p>运行程序:</p>
+<center><a href="../../../code/nc_2_4.cpp.html">view code<div><img class=scr src="../../image/6"/></div></a></center>
+<p>可以看到，那些矩形参数没有改变，但是这辆坦克可是被缩放了的，宽度和高度从28变成了100，也好观察些了，不是么，嘿嘿。
+<div class=title>去背景</div>
+<p>，蒽，这是我们本节的图片文件<center><div><img src="../../../code/enemy.png"/></div></center>可以看到背景是黑色的，如果贴在白色的窗口上就会出现黑色的背景(还好我是贴在黑色的窗口上的)，怎么办？我们可以通过一个函数来去掉他。
+</p>
+<pre class=code>  //去背景
+  Uint32 color_key = SDL_MapRGB(Surface->format, 4, 4, 4);
+  SDL_SetColorKey(Surface, SDL_TRUE, color_key);
+  //粘贴去背景的表面
+  SDL_BlitScaled(Surface, &Cut, WindowScreen, &Box2);</pre>
+<p>运行程序</p>
+<center><div><a href="../../../code/nc_2_4.cpp.html">view code<div><img class=scr src="../../image/7"/></div></a></div></center>
+<p>可以看到，黑色的背景被去掉了(右图)，那么我来解说一下<div class=code>  Uint32 color_key = SDL_MapRGB(Surface->format, 4, 4, 4);
+</div>
+这里我定义了一个32位的颜色color_key用函数<code>SDL_MapRGB</code>按照Surface的格式创建了一个类似黑色的<n>(R:4,G:4,B:4)</n>颜色<n>(黑色是R:0,G:0,B:0)</n>，就是坦克的背景色，再看看下一行
+<div class=code>  SDL_SetColorKey(Surface, SDL_TRUE, color_key);</div>
+函数是这样用的: SDL_SetColorKey(<n>这里填要去颜色的表面</n>, <n>这里填SDL_Bool类型的SDL_TRUE(1)或SDL_FALSE(0)</n>,<n>这里填要去的颜色</n>);
+</p>
+
+</p>
+</div>
+
+<!--  编辑区  -->
+</div>
+<div id=bottom>
+<a href="none.html#r">反馈</a>
+<a href="nc_1.html">上一节</a>
+<a href="contents.html">目录</a>
+<a href="nc_3.html">下一节</a>
+<a href="#top">回到顶部</a>
+</div>
+</div>
+
+</div>
+<div id=copr>
+Copyright © 2014 冯世昌 保留所有权利
+</div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html><html>
+<head>
+<!--  
+Copyright © dxkite all rights reserved.
+Copyright © 2014-2015 冯世昌 保留所有权利  
+ -->
+<meta content="text/html;charset=UTF-8" http-equiv="Content-Type">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+</head><body bgcolor="#b3ffb3" >
+<title>限制帧频</title>
+<h2>限制帧频</h2>
+关于动画，都是一帧一帧图片变化形成，这也是为什么我们要用while(true)的原因我们需要不断在窗口上绘图才能够形成动画，科学家曾说过，当图片变化为每秒24张的时候，眼睛将无法分辨主次，于是就有了电影。
+<br>本节我们将学习控制绘画的速率，说到底就是不让他画的过快。
+以前我们用的是SDL_Delay()函数来控制，现在我们再加入一个计时器：SDL_GetTicks();
+<pre><b><i>extern DECLSPEC Uint32 SDLCALL SDL_GetTicks(void);</i></b></pre>
+从函数申明可以看到，它将返回一个32位无符号整数，我们可以把它初始化为int类型。
+即
+<pre><b><i>int Time=GetTicks();</i></b></pre>
+限制帧数的主要思路是：
+<Li>获取已经过的时间
+<Li>对时间进行判断
+如果时间长于指定时间则不管他，如果比指定时间短，则暂停一段时间。
+<br>
+代码示列：
+<pre><b><i>
+// 每秒帧数
+int Frame = 24;
+while (true)
+{
+	// 初始化
+	TimeStart = 0;
+	TimeEnd = 0;
+	// 获得当前时间
+	TimeStart = SDL_GetTicks();
+	//绘图.......
+	// 获得结束时间
+	TimeEnd = SDL_GetTicks();
+	// 如果绘制过快
+	if ((TimeEnd - TimeStart) < (1000 / Frame))
+	{
+		SDL_Delay((1000 / Frame) - (TimeEnd - TimeStart));
+	}
+}</i></b></pre>
+
+<br><a href="http://pan.baidu.com/share/link?shareid=3481470553&uk=1413256347">本课源码下载</a><br>
+对于以上教程有什么意见过建议。欢迎欢迎上贴吧<a href="http://tieba.baidu.com/f?&kw=dxkite&jump_tieba_native=1&mo_device=1">@DXkite</a>
+<hr><h3>DXkite 于2014-6-26</h3>
+</body></html>
