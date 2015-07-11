@@ -57,7 +57,7 @@ h4 {
 	font-size: 12px;
 	padding: 6px;
 	font-weight: normal;
-	background: -webkit-linear-gradient(right, rgba(0,255,255,0.7), rgba(0,255,255,0.05));
+	background: -webkit-linear-gradient(left, rgba(0,255,255,0.7), rgba(0,255,255,0.05));
 	/* Safari 5.1 - 6.0*/
 	background: -o-linear-gradient(right, rgba(0,255,255,0.7), rgba(0,255,255,0.05));
 	/* Opera 11.1 - 12.0*/
