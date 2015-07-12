@@ -58,13 +58,13 @@ function load()
     if (window.innerWidth < 800)
     {
        // phone.style.display = "block";
-        addCssByLink("../component/css/phone-styles.css");
+        addCssByLink("./component/css/phone-styles.css");
 		addImgPop();
     }
     else
     {
       //  computer.style.display = "block";
-        addCssByLink("../component/css/pc-styles.css");
+        addCssByLink("./component/css/pc-styles.css");
         
     }
 	
