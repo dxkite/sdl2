@@ -16,7 +16,7 @@ Copyright © 2014-2015 冯世昌 保留所有权利
 </head>
 <body id="top" >
 <title>SDL2教程</title>
-<div id="title">SDL2教程<a id="ctrl_menu" ><img class="menu_ico" src="./component/media/menu.png"/></a></div>
+<div id="title">SDL2教程 第三版 模板<a id="ctrl_menu" ><img class="menu_ico" src="./component/media/menu.png"/></a></div>
 <div id="menu">
 <ol class="menu_list">
 <li><a href="http://tieba.baidu.com/f?kw=c4droid">C4droid吧</a></li>
