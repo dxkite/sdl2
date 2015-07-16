@@ -26,11 +26,13 @@ Copyright © 2014-2015 冯世昌 保留所有权利
 </div>
 <div id="page">
 <p>
-本课，我们来讲解初始化SDL2和创建一个窗口，在SDL2上比SDL1.2多出了一个SDL_Window结构体，意味着我们可以创建多个窗口。。。当然
+本课，我们来讲解初始化SDL2和创建一个窗口，并且将屏幕绘制成大红色：<br/>在SDL2上比SDL1.2多出了一个SDL_Window结构体，意味着我们可以创建多个窗口。。。当然
 不是在C4droid上，在C4droid上我们只能创建一个窗口。。。感觉被阉割了。。非使用C4droid的读者在使用SDL2前请参考SDL_GUI吧的教程自行配置SDL2.0,没有合适IDE的推荐codeblocks。。。
+在使用SDL2前先包含头文件。。在C4droid上使用时，头文件必须在入口源代码文件（编译时打开的源代码文件）中包含，保证C4droid打开SDL插件。
 </p>
 <pre>#include&nbsp;&lt;SDL2/SDL.h&gt;</pre>
 <p>
+包含头文件后即可使用SDL2定义的函数，在初始化时使用的函数有
 </p>
 
 <div align="center"><img src="scr_shoot/01_1.png" class="scr_shoot"></img></div>
