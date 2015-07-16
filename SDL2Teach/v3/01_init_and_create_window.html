@@ -15,8 +15,8 @@ Copyright © 2014-2015 冯世昌 保留所有权利
 
 </head>
 <body id="top" >
-<title>SDL2教程</title>
-<div id="title">SDL2教程 第三版 模板<a id="ctrl_menu" ><img class="menu_ico" src="./component/media/menu.png"/></a></div>
+<title>SDL2教程-第一课 初始化和创建窗口</title>
+<div id="title">第一课 初始化和创建窗口<a id="ctrl_menu" ><img class="menu_ico" src="./component/media/menu.png"/></a></div>
 <div id="menu">
 <ol class="menu_list">
 <li><a href="http://tieba.baidu.com/f?kw=c4droid">C4droid吧</a></li>
@@ -24,17 +24,23 @@ Copyright © 2014-2015 冯世昌 保留所有权利
 
 </ol>
 </div>
-
 <div id="page">
-<div class="say" >我。。。还在慢慢写。。。。。。电脑抽了。。。。</div>
+<p>
+本课，我们来讲解初始化SDL2和创建一个窗口，在SDL2上比SDL1.2多出了一个SDL_Window结构体，意味着我们可以创建多个窗口。。。当然
+不是在C4droid上，在C4droid上我们只能创建一个窗口。。。感觉被阉割了。。非使用C4droid的读者在使用SDL2前请参考SDL_GUI吧的教程自行配置SDL2.0,没有合适IDE的推荐codeblocks。。。
+</p>
+<pre>#include&nbsp;&lt;SDL2/SDL.h&gt;</pre>
+<p>
+</p>
 
-
+<div align="center"><img src="scr_shoot/01_1.png" class="scr_shoot"></img></div>
 <div align="center"> <a href="#top" rel="goto Top" ><div id="gotop">回到顶部</div></a></div>
-  
+
 </div>
 
+
 <div id="prev">
-<a href="" rel="previous class">&lt; 上一课</a></div>
+<a href="http://dxkite.github.io" rel="ATD编程资源网">ATD</a></div>
 <div id="next">
 <a href="" rel="next class">下一课 &gt;</a></div>
 <div id="img_view"><div align="center"><img id="img_show"></img></div></div>

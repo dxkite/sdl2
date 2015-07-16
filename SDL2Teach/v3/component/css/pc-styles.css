@@ -142,7 +142,6 @@ pre {
 p {
 	border-radius: 6px;
 	background-color: rgba(245,255,200,0.1);
-	text-align: center;
 	padding: 10px;
 	margin: 10px;
 }
@@ -158,4 +157,13 @@ p {
 	position: fixed;
 	right: 10px;
 	top: 10px;
+}
+
+.menu_list>li {
+	padding: 10px;
+	padding-left:20px;
+	padding-right:20px;
+	margin: 0px;
+	border-bottom: #000 1px solid;
+	text-align: center;
 }
