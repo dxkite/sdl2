@@ -9,7 +9,9 @@ body {
 	margin: 0px;
 	padding: 0px;
 	background-image: url( ../media/bg.gif);
-	font-size: 16px;
+font-size: 16px; 
+line-height: 1.5em;
+background-position: initial initial; background-repeat: initial initial;
 }
 h1 {
 	font-size: 12px;
@@ -161,9 +163,14 @@ pre {
 	background-position: 50% 0%;
 	background-repeat: initial initial;
 }
-
-
-
+/*
+#img_show
+{
+	width:auto;
+	height:auto;
+	overflow:auto;
+}
+*/
 #menu {
 	display: none;
 	position: fixed;
