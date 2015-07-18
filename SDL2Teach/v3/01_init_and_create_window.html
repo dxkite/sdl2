@@ -84,21 +84,31 @@ SDL_DestroyWindow释放，SDL_Surface用SDL_FreeSurface释放，名字之所以�
         return -1;
     //填充窗口
     SDL_FillRect(WindowScreen, NULL, SDL_MapRGB(WindowScreen->format, 0xFF, 0x00, 0x00));</pre> 
-<p></p>
-
- 
-
-
-
-
-
-
-
-
-
-
-
+<p>函数SDL_FillRect是一个用来操作SDL_Surface的函数，它的作用是在表面上填充一个矩形区域，第一个参数是填充的目标表面，第二个是填充的矩形区域，接受一个SDL_Rect参数，如今设置为NULL，则默认全部填充，第三个参数是填充矩形用的颜色，但是我们看到在这里用了一个SDL_MapRGB来指定颜色，这是因为我们不知道WindowScreen使用的颜色格式，第一个参数获取了WindowScreen的颜色格式，然后通过后面的3个参数混合一种颜色，SDL_MapRGB会将这颜色转换成输入的颜色格式并返回，关于混合色用的是色彩三原色红、绿、蓝来混合，每种颜色取值为0x0~0xFF也就是一个字节，这里我们用了全红0xFF，绿蓝都取0,这样混合的颜色为大红色，效果稍后看截图：</p>
+<pre>	SDL_UpdateWindowSurface(Window);
+    SDL_Delay(2000);
+    Destroy();
+    return 0;
+}
+</pre>
+<p>这一段用了两个函数，SDL_UpdateWindowSurface将我们在之前绑定了窗口表面的WindowScreen上的操作应用到窗口上，SDL_Delay的作用是暂停屏幕，相当于暂停,接下来看运行结果截图：</p>
 <div align="center"><img src="scr_shoot/01_1.png" class="scr_shoot"></img></div>
+<p>看看其他参数改变后运行效果图：</p>
+<pre>Window = SDL_CreateWindow("SDL_Window", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 240, 400, SDL_WINDOW_SHOWN|SDL_WINDOW_BORDERLESS);
+SDL_MapRGB(WindowScreen->format, 0x00, 0xFF, 0x00)</pre>
+<div align="center"><img src="scr_shoot/01_2.png" class="scr_shoot"></img></div>
+<pre>Window = SDL_CreateWindow("SDL_Window", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 240, 400, SDL_WINDOW_SHOWN|SDL_WINDOW_BORDERLESS);
+SDL_MapRGB(WindowScreen->format, 0x00, 0xFF, 0xFF)</pre>
+<div align="center"><img src="scr_shoot/01_3.png" class="scr_shoot"></img></div>
+
+
+
+
+
+
+
+
+
 
 
 

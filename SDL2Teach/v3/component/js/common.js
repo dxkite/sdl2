@@ -25,26 +25,27 @@ var img_show=document.getElementById("img_show");
 img_show.src=url;
 
 }
+
 function addImgPop()
 {
 
-	var imgs=document.getElementsByTagName("img");
-	for (i=0;i<imgs.length-1;i++)
+	var imgs = document.getElementsByTagName("img");
+	for (i = 0; i < imgs.length - 1; i++)
 	{
 		var show;
-		if(imgs[i].className=="scr_shoot")
+		if (imgs[i].className == "scr_shoot")
 		{
-			show=imgs[i];
-			show.onclick=function ()
+			show = imgs[i];
+			show.onclick = function()
 			{
-		
-			var url=show.attributes.getNamedItem("src").nodeValue;
-			//alert(url);
-			showIMG(url);
+
+				var url = show.attributes.getNamedItem("src").nodeValue;
+				// alert(url);
+				showIMG(url);
 			}
-			
+
 		}
-		
+
 	}
 }
 
