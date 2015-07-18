@@ -31,6 +31,14 @@ function showIMG(url)
 
 }
 
+function add_event(Obj)
+{
+	Obj.onclick = function()
+	{
+		showIMG(Obj.attributes.getNamedItem("src").nodeValue);
+	}
+}
+
 function addImgPop()
 {
 
@@ -40,20 +48,10 @@ function addImgPop()
 		var show;
 		if (imgs[i].className == "scr_shoot")
 		{
-			show = imgs[i];
-			show.onclick = function()
-			{
-
-				var url = show.attributes.getNamedItem("src").nodeValue;
-				// alert(url);
-				showIMG(url);
-			}
-
+			add_event(imgs[i]);
 		}
-
 	}
 }
-
 
 
 function load()
@@ -98,6 +96,11 @@ function load()
 	{
 		menu.style.display = "none";
 		document.getElementById("img_view").style.display = "none";
+	}
+		if (loading&&loaded)
+	{
+	loaded.style.display = "block";
+	loading.style.display ="none";
 	}
 }
 
