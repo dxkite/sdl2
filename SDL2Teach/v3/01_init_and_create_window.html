@@ -81,7 +81,7 @@ void Destroy()
 }</pre>
 <p>SDL2创建的结构体指针的内存无法自动释放，是需要用函数释放的，每种结构体有其特定的释放函数，如SDL_Window用
 SDL_DestroyWindow释放，SDL_Surface用SDL_FreeSurface释放，名字之所以有些不同是继承自SDL1.2,然后就是退出SDL2，用函数SDL_Quit退出；
-<br/>之后就到了主函数，函数参数必须使用完全版本的main函数，值得注意的是，main函数必须首先调用，因为它不是正真的main函数！它只是一个被替换的宏</p>
+<br/>之后就到了主函数，函数参数必须使用完全版本的main函数，值得注意的是，main函数必须首先调用，因为它不是正真的main函数！它只是一个被替换的宏（见SDL_main.h:83:#define main SDL_main）</p>
 <pre>int main(int args, char *argv[])
 {
     if (Init() != 0)

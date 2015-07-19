@@ -8,8 +8,10 @@
 body {
 	margin: 0px;
 	padding: 0px;
+	padding-top:40px;
 	background-image: url(../media/bg.gif);
-/*	font-size: 18px;*/
+	font-size: 18px;
+	line-height:1.5em;
 }
 h1 {
 	font-size: 20px;
@@ -88,7 +90,7 @@ pre {
 	margin-right: auto;
 	margin-bottom: 15px;
 	margin-left: auto;
-	font-family: 'courier new';
+	font-family: 'courier new' ;
 	font-size: 16px;
 	font-style: normal;
 	font-variant: normal;
@@ -128,7 +130,7 @@ pre {
 	border: 2px solid #8AC007;
 	padding: 10px;
 	margin: 10px;
-	margin-top: 50px;
+/*	margin-top: 50px;*/
 }
 #bar {
 	border-radius: 6px;
@@ -151,7 +153,7 @@ p {
 	position: fixed;
 	margin: 0px;
 	right: 0px ;
-	top : 43px;
+	top : 48px;
 }
 #ctrl_menu {
 	position: fixed;
