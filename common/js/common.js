@@ -19,7 +19,6 @@ function addCssByLink(url)
         doc.documentElement.appendChild(link);
 		//alert(url);
 }
-
 function showIMG(url)
 {
 	// alert(url);

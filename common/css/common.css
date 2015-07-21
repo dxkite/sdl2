@@ -171,3 +171,12 @@ bottom:0px;	background-color:rgba(0,0,0,0.4);
 #menu {
 	display: none;
 }
+#loading
+{
+	display:block;
+	padding:6px;
+}
+#loaded 
+{
+	display:none;
+}
