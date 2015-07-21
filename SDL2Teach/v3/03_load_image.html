@@ -34,13 +34,10 @@ Copyright © 2014-2015 冯世昌 保留所有权利
 <div align="center">
 <table border="0" cellspacing="0">
   <tr>
-    <td><div style="padding-right:20px;"><img  src="scr_shoot/hello.bmp" class="scr_shoot"></img><div align="center" class="t">hello.bmp</div></div></td>
-    <td><div style="padding-left:20px;"><img  src="scr_shoot/hello.png" class="scr_shoot"></img><div align="center" class="t">hello.png</div></div></td>
+    <td><div style="padding-right:20px;"><img  src="scr_shoot/hello.bmp" class="scr_shoot"></img><div class="t">hello.bmp</div></div></td>
+    <td><div style="padding-left:20px;"><img  src="scr_shoot/hello.png" class="scr_shoot"></img><div class="t">hello.png</div></div></td>
   </tr>
 </table>
-
-
-
 </div>
 
 <pre>// 图片表面
@@ -58,19 +55,22 @@ SDL_Surface *Surface = NULL;
 <pre>  //粘贴表面
   SDL_BlitScaled(Surface, NULL, WindowScreen, NULL);</pre>
   <p>函数SDL_BlitScaled接受四个参数，第一个参数是源表面，第三个参数是目的表面，函数的作用是将源表面绘制到目的表面上，第二个参数指定了源表面绘制到目的表面的区域，接受一个SDL_Rect指针，第四个参数指定了源表面绘制到目的表面的区域，同样接受一个SDL_Rect的指针，在此，两个设置为NULL表示默认全部都绘制和绘制目的表面的全部区域，刷新表面后，看效果：</p>
-<table border="0" cellspacing="0">
+<div align="center">
+  <table border="0" cellspacing="0">
   <tr>
-    <td><div style="padding-right:20px;"><img  src="scr_shoot/03_1.png" class="scr_shoot"></img><div align="center" class="t">hello.bmp 加载截图</div></div></td>
-    <td><div style="padding-left:20px;"><img  src="scr_shoot/03_2.png" class="scr_shoot"></img><div align="center" class="t">hello.png 加载截图</div></div></td>
+    <td><div style="padding-right:20px;"><img  src="scr_shoot/03_1.png" class="scr_shoot"></img><div  class="t">hello.bmp 加载截图</div></div></td>
+    <td><div style="padding-left:20px;"><img  src="scr_shoot/03_2.png" class="scr_shoot"></img><div  class="t">hello.png 加载截图</div></div></td>
   </tr>
 </table>
+</div>
+<div align="center">
 <table border="0" cellspacing="0">
   <tr>
-    <td><div style="padding-right:20px;"><img  src="scr_shoot/clip.png" class="scr_shoot"></img><div align="center" class="t">clip.png</div></div></td>
-    <td><div style="padding-left:20px;"><img  src="scr_shoot/03_3.png" class="scr_shoot"></img><div align="center" class="t">代码运行效果图</div></div></td>
+    <td><div style="padding-right:20px;"><img  src="scr_shoot/clip.png" class="scr_shoot"></img><div class="t">clip.png</div></div></td>
+    <td><div style="padding-left:20px;"><img  src="scr_shoot/03_3.png" class="scr_shoot"></img><div class="t">代码运行效果图</div></div></td>
   </tr>
 </table>
-
+</div>
 <a href="#top" rel="goto Top" ><div id="gotop">回到顶部</div></a></div>
 
 
