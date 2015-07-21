@@ -185,9 +185,13 @@ pre {
 	top: 10px;
 }
 
-
+.t
+{
+font-size: 12px;
+text-align:center; 
+}
 .scr_shoot
 {
-	width:60px;
-	height:100px;
+	width:100px;
+	height:60px;
 }
