@@ -23,6 +23,8 @@ function showIMG(url)
 	img_view.style.display = "block";
 	var img_show = document.getElementById("img_show");
 	img_show.src = url;
+	img_show.style.top=(window.innerHeight/2-img_show.offsetHeight/2)+"px";
+	img_show.style.left=(window.innerWidth/2-img_show.offsetWidth/2)+"px";
 
 }
 
