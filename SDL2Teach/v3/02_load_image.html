@@ -54,7 +54,11 @@ SDL_Surface *Surface = NULL;
   return 0;
 }
 </pre><p>这里用到了函数SDL_LoadBMP这个函数接受一个路径参数,只能加载BMP格式的图片，返回一个SDL_Surface的指针，如果我们要加载所有格式的图片，那么看看另一份代码文件：</p>
-<pre>int LoadSurface()
+<pre>
+//...使用前初始化
+// IMG_Init(IMG_INIT_PNG);
+
+int LoadSurface()
 {
 //加载图片
   Surface = IMG_Load("hello.png");
@@ -62,8 +66,10 @@ SDL_Surface *Surface = NULL;
     return -1;
   return 0;
 }
+//...退出
+//  IMG_Quit();
 </pre>
-<p>这是另一份代码加载图片的部分，这里可以加载所有格式的图片，不过在使用IMG_Load函数之前，需要包含SDL_image.h 头文件</p>
+<p>这是另一份代码加载图片的部分，这里可以加载所有格式的图片，不过在使用IMG_Load函数之前，需要包含SDL_image.h 头文件，不可避免的，初始化和退出总是必要的,这里就不贴出来了，在代码中可以看到</p>
 <p>再来看看在主函数中如何把Surface应用到上节课绑定了窗口的表面WindowScreen上</p>
 <pre>  //粘贴表面
   SDL_BlitScaled(Surface, NULL, WindowScreen, NULL);</pre>

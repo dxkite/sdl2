@@ -29,10 +29,45 @@ Copyright © 2014-2015 冯世昌 保留所有权利
 </ol>
 </div>
 <div id="page">
+<center><span class="date">2015-7-22编辑</span></center>
+<p>上两课创建了表面，加载了图片，就是没有出现文字，虽然可以用图片代替文字，但是，这样的话就会使程序平白增加一大堆内存，而且会使程序变得臃肿难看，那么，我们可以用上字体文件了，老路子，包含头文件SDL_ttf.h后先初始化一下，声明一个字体结构体</p>
+<pre>    //   初始化字体
+    TTF_Init();
+    //字体
+    TTF_Font *Font = NULL;</pre>
+<p>接下来就是加载字体了，在安卓平台上的默认字体是固定的路径：/system/fonts/DroidSansFallback.ttf，在其他平台我就不知了。。</p>
+<pre>	//加载字体文件
+    Font = TTF_OpenFont(fpath, fsize);
 
+    if (Font == NULL)
+        return -2;
+</pre>
+<p>函数TTF_OpenFont接受两个参数，第一个是字体路径，第二个是打开后字体的大小；</p>
+<pre>SDL_Rect pos;
+    pos.x = 0;
+    pos.y = 0;
+    int fw = 0, fh = 0;
+    Surface = TTF_RenderUTF8_Blended(Font, "Solid 渲染UTF-8", fg);
+	
+    if (Surface == NULL)
+        return -3;
 
+    //通过函数获取单行长宽
+    TTF_SizeUTF8(Font, "Solid 渲染UTF-8", &fw, &fh);
+    pos.w = fw;
+    pos.h = fh;</pre>
+<p>函数TTF_RenderUTF8_Blended的作用渲染字体表面，第一个参数是打开的字体，第二个是文本内容，第三个是文本颜色，返回文字表面,函数TTF_SizeUTF8顾名思义，获取文本渲染后的宽高，用它获取后可以防止表面拉伸,如果想换行怎么办？不急，且看下面的代码</p>
+<pre>//粘贴表面
+    SDL_BlitScaled(Surface, NULL, WindowScreen, &pos);
+    SDL_FreeSurface(Surface);
+    Surface = NULL;
+    Surface = TTF_RenderUTF8_Blended_Wrapped(Font, "渲染UTF-8折行渲染UTF-8折行渲染UTF-8 折行渲染UTF-8 折行渲染UTF-8 折行渲染UTF-8", fg,/*行宽*/ 400);
 
-
+    if (Surface == NULL)
+        return -4;</pre>
+<p>函数TTF_RenderUTF8_Blended_Wrapped渲染的时候会根据空格换行，不过少许混乱，最后一个参数为渲染的最大宽度，当行长超过设置长度时如之前有空格，则换行，如无。。。场面相当混乱。。读者可以自己试试,渲染后应用到窗口上，看看效果图</p>
+<center><img  src="scr_shoot/04_1.png" class="scr_shoot"></img><div class="t">运行效果图</div></center>
+<p></p>	
 
 
 
