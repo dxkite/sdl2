@@ -170,3 +170,12 @@ p {
 	border-bottom: #000 1px solid;
 	text-align: center;
 }
+.date
+{
+border: rgba(0,0,255,0.8) 1px dashed;
+background-color:rgba(0,255,0,0.3);
+text-align:center;
+padding:2px;
+font-size:14px;
+line-height:14px;
+}

@@ -24,11 +24,12 @@ Copyright © 2014-2015 冯世昌 保留所有权利
 <div id="menu">
 <ol class="menu_list">
 <li><a href="http://tieba.baidu.com/f?kw=c4droid">C4droid吧</a></li>
+<li><a href="./code/03_load_image.zip" download>下载本课源码</a></a></li>
 <li><a href="./contents.html">目录</a></li>
 </ol>
 </div>
 <div id="page">
-
+<center><span class="date">2015-7-22 9:05 最后编辑</span></center>
 
 
 <p>本课，我们来加载图片，首先在工作目录准备两张图片,一张是BMP格式图片，一张是比较常见的PNG图片<br/>我们现在加载BMP格式的图片，拿出第一课我们写的源代码，添加文件加载部分，在此之前，先添加一个全局变量Suface用来储存加载的图片</p>
@@ -52,7 +53,18 @@ SDL_Surface *Surface = NULL;
     return -1;
   return 0;
 }
-</pre><p>这里用到了函数SDL_LoadBMP这个函数接受一个路径参数，返回一个SDL_Surface的指针<br/>看看在主函数中如何把Surface应用到上节课绑定了窗口的表面WindowScreen上</p>
+</pre><p>这里用到了函数SDL_LoadBMP这个函数接受一个路径参数,只能加载BMP格式的图片，返回一个SDL_Surface的指针，如果我们要加载所有格式的图片，那么看看另一份代码文件：</p>
+<pre>int LoadSurface()
+{
+//加载图片
+  Surface = IMG_Load("hello.png");
+  if (Surface == NULL)
+    return -1;
+  return 0;
+}
+</pre>
+<p>这是另一份代码加载图片的部分，这里可以加载所有格式的图片，不过在使用IMG_Load函数之前，需要包含SDL_image.h 头文件</p>
+<p>再来看看在主函数中如何把Surface应用到上节课绑定了窗口的表面WindowScreen上</p>
 <pre>  //粘贴表面
   SDL_BlitScaled(Surface, NULL, WindowScreen, NULL);</pre>
   <p>函数SDL_BlitScaled接受四个参数，第一个参数是源表面，第三个参数是目的表面，函数的作用是将源表面绘制到目的表面上，第二个参数指定了源表面绘制到目的表面的区域，接受一个SDL_Rect指针，第四个参数指定了源表面绘制到目的表面的区域，同样接受一个SDL_Rect的指针，在此，两个设置为NULL表示默认全部都绘制和绘制目的表面的全部区域，刷新表面后，看效果：</p>
@@ -64,6 +76,14 @@ SDL_Surface *Surface = NULL;
   </tr>
 </table>
 </div>
+<p>接下来我们来应用一下两个被我们设置为NULL的矩形参数，如下左边的图片，我们只需要左上方的黄色安卓机器人怎么办？使用函数SDL_BlitScaled的第二个矩形参数，先用Windows画图之类的函数确定其所在区域，在声明一个矩形参数，再绘制，定义矩形参数的时候我用的是列表初始化，初始化的SDL_Rect的成员分别是x,y,w,h;左上顶点位置（x,y),和矩形宽（width）高 （height）</p>
+<pre>    //剪切
+    SDL_Rect clip =
+    {
+        0, 0, 200, 120
+    };
+    //粘贴表面
+    SDL_BlitScaled(Surface, &clip, WindowScreen,NULL);</pre>
 <div align="center">
 <table border="0" cellspacing="0">
   <tr>
@@ -72,10 +92,27 @@ SDL_Surface *Surface = NULL;
   </tr>
 </table>
 </div>
-
-
-
-
+<p>图片是贴上去了，不过可以明显看到图像有拉伸的情况，那怎么办？有两个解决方案：</p>
+<p>1.使用最后那个参数：</p>
+<pre>//绘制位置
+    SDL_Rect pos =
+    {
+        50, 50, 200, 120
+    };
+    //粘贴表面
+    SDL_BlitScaled(Surface, &clip, WindowScreen, &pos);</pre>
+<p>2.使用函数SDL_BlitSurface：</p>
+<pre>    //绘制位置
+    SDL_Rect pos =
+    {
+        50, 50, 0, 0
+    };
+    //粘贴表面
+    SDL_BlitSurface(Surface, &clip, WindowScreen, &pos);
+    //更新窗口
+    SDL_UpdateWindowSurface(Window);</pre>
+<p>可以看到，使用SDL_BlitSurface函数时，pos的w,h都被我设置为0了，可是这两个方案运行结果是一致的，如下图：</p>
+<center><img  src="scr_shoot/03_4.png" class="scr_shoot"></img><div class="t">剪切后两个方案运行效果相同</div></center>
 <div align="center"><a href="#top" rel="goto Top" ><div id="gotop">回到顶部</div></a></div>
 </div>
 <div id="prev">
