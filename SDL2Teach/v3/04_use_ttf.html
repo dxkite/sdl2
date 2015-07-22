@@ -64,11 +64,16 @@ Copyright © 2014-2015 冯世昌 保留所有权利
     Surface = TTF_RenderUTF8_Blended_Wrapped(Font, "渲染UTF-8折行渲染UTF-8折行渲染UTF-8 折行渲染UTF-8 折行渲染UTF-8 折行渲染UTF-8", fg,/*行宽*/ 400);
 
     if (Surface == NULL)
-        return -4;</pre>
-<p>函数TTF_RenderUTF8_Blended_Wrapped渲染的时候会根据空格换行，不过少许混乱，最后一个参数为渲染的最大宽度，当行长超过设置长度时如之前有空格，则换行，如无。。。场面相当混乱。。读者可以自己试试,渲染后应用到窗口上，看看效果图</p>
+        return -4;
+	    pos.x = 0;
+    pos.y = fh;
+    //获取表面的宽高
+    pos.w = Surface->w;
+    pos.h = Surface->h;</pre>
+<p>函数TTF_RenderUTF8_Blended_Wrapped渲染的时候会根据空格换行，不过少许混乱，最后一个参数为渲染的最大宽度，当行长超过设置长度时如之前有空格，则换行，如无。。。场面相当混乱。。读者可以自己试试,这里还用了另一种方法获取宽高，它是通过获取Surface本身的成员来获取它；渲染后应用到窗口上，看看效果图</p>
 <center><img  src="scr_shoot/04_1.png" class="scr_shoot"></img><div class="t">运行效果图</div></center>
 <p></p>	
-
+ 
 
 
 <div align="center"> <a href="#top" rel="goto Top" ><div id="gotop">回到顶部</div></a></div>
