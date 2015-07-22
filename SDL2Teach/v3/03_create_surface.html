@@ -29,9 +29,11 @@ Copyright © 2014-2015 冯世昌 保留所有权利
 </ol>
 </div>
 <div id="page">
-<center><span class="date">努力码字中…不急</span></center>
-<p>本课的内容牵涉到数据的结构问题，先给大家讲解一下在颜色是怎么表示的，学美术的大概听过混合色这个词吧？电脑上的颜色都是混合色，由基本的红、绿、蓝三种颜色混合而成，即RGB颜色，有木有人问透明度用什么表示？答案是alpha，由此，颜色的构成便有4个元素：红R、绿G、蓝B、透明度A；这是目前我遇到的比较完整的颜色表示，每一个元素取值0~255即一个字节，一个RGBA颜色占空间=sizeof(char)*8*4=32位，那么我们来建一个2x2的像素点内存</p>
-<pre>const int bitmap_w=2,bitmap_h=2;
+<center><span class="date">2015-7-22 14:04 最后编辑</span></center>
+<p>本课的内容牵涉到数据的结构问题，先给大家讲解一下在颜色是怎么表示的，学美术的大概听过混合色这个词吧？电脑上的颜色都是混合色，由基本的红、绿、蓝三种颜色混合而成，即RGB颜色，有木有人问透明度用什么表示？答案是alpha，由此，颜色的构成便有4个元素：红R、绿G、蓝B、透明度A；这是目前我遇到的比较完整的颜色表示，每一个元素取值0~255即一个字节，一个RGBA颜色占空间=sizeof(char)*8*4=32位，那么我们来建一个2x2的像素点内存，打开上课的代码，添加：</p>
+<pre>// 创建的表面
+SDL_Surface *created = NULL;
+const int bitmap_w=2,bitmap_h=2;
 //表面数据
 Uint32 bitmap[]=
 {
@@ -47,10 +49,19 @@ Uint32 bitmap[]=
 <span style="color:rgba(0,0,255,1);">0x0000ffff</span>，我把这4种颜色用网页渲染出来了，从网页效果可以看出哪一部分数据代表那种颜色，如果还不明白，看看下面的图片：
 </p>
 <center><img  src="scr_shoot/color_format.png" class="scr_shoot"></img><div class="t">RGBA颜色结构示意图图</div></center>
-<p>现在，位图信息搞好了，接下来到了正题，创建Surface，且看代码：</p>
-<pre></pre>
+<p>现在，位图信息搞好了，接下来到了正题，创建表面created，且看代码：</p>
+<pre>int CreateSurface()
+{
+    created = SDL_CreateRGBSurfaceFrom((void *) bitmap, bitmap_w, bitmap_h, sizeof(Uint32) * 8, bitmap_w * sizeof(Uint32) , 0xFF000000, 0x00FF0000, 0x0000FF00, 0x000000FF);
 
+    if (created == NULL)
+        return -1;
 
+    return 0;
+}</pre>
+<p>我们使用函数SDL_CreateRGBSurfaceFrom来创建表面，第一个参数，接受一个void*类型的内存地址，这里我们把bitmap转化为了数据指针，接下来的两个参数指定了表面的宽高，第四个参数，是一个颜色所占的储存的位的长度，即4个char空间一共32位，第五个参数，设置的是一行像素的字节长度，这里是 bitmap_w * sizeof(Uint32)=2x4=8,最后四个参数指定了R、G、B、A四种颜色参数所属内存空间，即颜色的格式，我们本节课的颜色格式在SDL2中的标识符为SDL_PIXELFORMAT_RGBA8888<br/>如今表面已经创建，直接把他应用在窗口的表面上，全屏，不然2x2的区域。。。太小了，目测不到，运行效果如下图：</p>
+<center><img  src="scr_shoot/03_1.png" class="scr_shoot"></img><div class="t">运行效果图</div></center>
+<p>呐，我还特地把上节课的图片保留了下来，为的是看清楚透明度7F与FF的差别，看看，左上角和右上角的区别看得出来吧？？</p>
 <div align="center"> <a href="#top" rel="goto Top" ><div id="gotop">回到顶部</div></a></div>
 </div>
 
