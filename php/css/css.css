@@ -1,0 +1,19 @@
+body,html,table,tr,th,td{font-size:14px;}
+body,html,table,tr,th,td,div,form,img,ul,ol,li,dl,dt,dd,p,fieldset,h1,h2,h3,h4,h5,h6 {margin:0;padding:0;border:0;}
+input,select {margin:0;padding:0;}
+ul,ol,li,dl,dt,dd{list-style:none;}
+h1, h2, h3, h4, h5, h6 { font-size: 1em; }
+select { margin-right: 2px; }
+textarea{border:1px solid #cad9ea;line-height:16px;}
+a{color:#333;text-decoration:none;}
+a:hover,a:active{color:red;text-decoration:none;}
+.floatleft{float:left;}
+.floatright{float:right;}
+.clearboth{clear:both;}
+
+.orange{color:#F3A330;} /*橙色的*/
+.red{color:#F00;}/*红色*/
+.gray{color:gray;}/*灰色*/
+a:link { color: #003399; }
+a:visited { color: #2f7dbe; }
+a:hover { color: #339933; }
