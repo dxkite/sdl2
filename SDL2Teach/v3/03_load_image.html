@@ -111,7 +111,7 @@ SDL_Surface *Surface = NULL;
     SDL_BlitSurface(Surface, &clip, WindowScreen, &pos);
     //更新窗口
     SDL_UpdateWindowSurface(Window);</pre>
-<p>可以看到，使用SDL_BlitSurface函数时，pos的w,h都被我设置为0了，可是这两个方案运行结果是一致的，如下图：</p>
+<p>可以看到，使用SDL_BlitSurface函数时，pos的w,h都被我设置为0了，可是这两个方案运行结果是一致的，因为SDL_BlitSurface会忽略最后一个参数的宽和高，运行后如下图：</p>
 <center><img  src="scr_shoot/03_4.png" class="scr_shoot"></img><div class="t">剪切后两个方案运行效果相同</div></center>
 <div align="center"><a href="#top" rel="goto Top" ><div id="gotop">回到顶部</div></a></div>
 </div>
