@@ -71,8 +71,8 @@ SDL_Surface *Surface = NULL;
 <div align="center">
   <table border="0" cellspacing="0">
   <tr>
-    <td><div style="padding-right:20px;"><img  src="scr_shoot/03_1.png" class="scr_shoot"></img><div  class="t">hello.bmp 加载截图</div></div></td>
-    <td><div style="padding-left:20px;"><img  src="scr_shoot/03_2.png" class="scr_shoot"></img><div  class="t">hello.png 加载截图</div></div></td>
+    <td><div style="padding-right:20px;"><img  src="scr_shoot/02_1.png" class="scr_shoot"></img><div  class="t">hello.bmp 加载截图</div></div></td>
+    <td><div style="padding-left:20px;"><img  src="scr_shoot/02_2.png" class="scr_shoot"></img><div  class="t">hello.png 加载截图</div></div></td>
   </tr>
 </table>
 </div>
@@ -88,7 +88,7 @@ SDL_Surface *Surface = NULL;
 <table border="0" cellspacing="0">
   <tr>
     <td><div style="padding-right:20px;"><img  src="scr_shoot/clip.png" class="scr_shoot"></img><div class="t">clip.png</div></div></td>
-    <td><div style="padding-left:20px;"><img  src="scr_shoot/03_3.png" class="scr_shoot"></img><div class="t">代码运行效果图</div></div></td>
+    <td><div style="padding-left:20px;"><img  src="scr_shoot/02_3.png" class="scr_shoot"></img><div class="t">代码运行效果图</div></div></td>
   </tr>
 </table>
 </div>
@@ -112,13 +112,13 @@ SDL_Surface *Surface = NULL;
     //更新窗口
     SDL_UpdateWindowSurface(Window);</pre>
 <p>可以看到，使用SDL_BlitSurface函数时，pos的w,h都被我设置为0了，可是这两个方案运行结果是一致的，因为SDL_BlitSurface会忽略最后一个参数的宽和高，运行后如下图：</p>
-<center><img  src="scr_shoot/03_4.png" class="scr_shoot"></img><div class="t">剪切后两个方案运行效果相同</div></center>
+<center><img  src="scr_shoot/02_4.png" class="scr_shoot"></img><div class="t">剪切后两个方案运行效果相同</div></center>
 <div align="center"><a href="#top" rel="goto Top" ><div id="gotop">回到顶部</div></a></div>
 </div>
 <div id="prev">
 <a href="01_init_and_create_window.html" >&lt; 上一课</a></div>
 <div id="next">
-<a href="03_create_surface.html" rel="next class">下一课 &gt;</a></div>
+<a href="02_create_surface.html" rel="next class">下一课 &gt;</a></div>
 <div id="img_view"><div align="center"><img id="img_show"></img></div></div>
 <div id="cpr"><a href="http://tieba.baidu.com/f?kw=dxkite">©2014-2015 DXkite all rights reserved.</a></div>
 
