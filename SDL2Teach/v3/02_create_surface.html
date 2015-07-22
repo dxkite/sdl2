@@ -30,8 +30,22 @@ Copyright © 2014-2015 冯世昌 保留所有权利
 </div>
 <div id="page">
 <center><span class="date">努力码字中…不急</span></center>
-
-
+<p>本课的内容牵涉到数据的结构问题，先给大家讲解一下在颜色是怎么表示的，学美术的大概听过混合色这个词吧？电脑上的颜色都是混合色，由基本的红、绿、蓝三种颜色混合而成，即RGB颜色，有木有人问透明度用什么表示？答案是alpha，由此，颜色的构成便有4个元素：红R、绿G、蓝B、透明度A；这是目前我遇到的比较完整的颜色表示，每一个元素取值0~255即一个字节，一个RGBA颜色占空间=sizeof(char)*8*4=32位，那么我们来建一个2x2的像素点内存</p>
+<pre>const int bitmap_w=2,bitmap_h=2;
+//表面数据
+Uint32 bitmap[]=
+{
+<span style="color:rgba(255,0,0,0.5);">0xff00007f</span>,
+<span style="color:rgba(255,0,0,1);">0xff0000ff</span>,
+<span style="color:rgba(0,255,0,1);">0x00ff00ff</span>,
+<span style="color:rgba(0,0,255,1);">0x0000ffff</span>，
+};</pre>
+<p>Uint32是SDL2中的一个类型，它是unsigned int类型的别名，一个Uint32数据占32位的储存空间，足以储存一个RGBA的颜色，我们来列表是、初始化一下，这个点阵含2x2=4个像素，分别为：
+<span style="color:rgba(255,0,0,0.5);">0xff00007f</span>,
+<span style="color:rgba(255,0,0,1);">0xff0000ff</span>,
+<span style="color:rgba(0,255,0,1);">0x00ff00ff</span>,
+<span style="color:rgba(0,0,255,1);">0x0000ffff</span>，我把这4种颜色用网页渲染出来了，从网页效果可以看出哪一部分数据代表那种颜色，如果还不明白，看看下面的图片：
+</p>
 
 
 
@@ -44,7 +58,6 @@ Copyright © 2014-2015 冯世昌 保留所有权利
 <a href="03_load_image.html" rel="next class">下一课 &gt;</a></div>
 <div id="img_view"><div align="center"><img id="img_show"></img></div></div>
 <div id="cpr"><a href="http://tieba.baidu.com/f?kw=dxkite">©2014-2015 DXkite all rights reserved.</a></div>
-
 
 </div>
 </body>
