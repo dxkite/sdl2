@@ -25,7 +25,6 @@ function showIMG(url)
 	img_show.src = url;
 	img_show.style.top=(window.innerHeight/2-img_show.offsetHeight/2)+"px";
 	img_show.style.left=(window.innerWidth/2-img_show.offsetWidth/2)+"px";
-
 }
 
 function call_show(Obj)
