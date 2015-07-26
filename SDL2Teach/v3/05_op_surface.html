@@ -2,10 +2,10 @@
 <html>
 <head>
 <!--  
-Copyright © dxkite all rights reserved.
+Copyright &copy; dxkite all rights reserved.
 SDL2 Teach Simple Web Page Code
 SDL2教程简单网页代码
-Copyright © 2014-2015 冯世昌 保留所有权利  
+Copyright &copy; 2014-2015 冯世昌 保留所有权利  
  -->
 <meta content="text/html;charset=UTF-8" http-equiv="Content-Type">
 <meta charset="utf-8"/>
@@ -55,7 +55,8 @@ Copyright © 2014-2015 冯世昌 保留所有权利
 <div>方法二：设置表面透明色</div>
 <p>相关函数：SDL_GetColorKey，SDL_SetColorKey;<br/>代码示例：</p>
 <pre>    //如果设置成功
-    if (SDL_SetColorKey(Surface,SDL_TRUE,SDL_MapRGB(Surface->format,0xff,0xff,0))==0)
+    if (SDL_SetColorKey(Surface,SDL_TRUE,
+	SDL_MapRGB(Surface->format,0xff,0xff,0))==0)
     {
     SDL_FillRect(WindowScreen, NULL, SDL_MapRGB(WindowScreen->format, 0xcc, 0xcc, 0xcc));
     //设置成功后粘贴表面
