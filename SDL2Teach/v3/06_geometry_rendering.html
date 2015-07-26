@@ -20,12 +20,12 @@ Copyright &copy; 2014-2015 冯世昌 保留所有权利
 加载中……
 </div>
 <div id="loaded">
-<div id="title">第六课 几何绘图</div> <a id="ctrl_menu" ><img class="menu_ico" src="./component/media/menu.png"/></a></div>
+
+<div id="title">第六课 几何绘图<a id="ctrl_menu" ><img class="menu_ico" src="./component/media/menu.png"/></a></div>
 <div id="menu">
 <ol class="menu_list">
 <li><a href="http://tieba.baidu.com/f?kw=c4droid">C4droid吧</a></li>
 <li><a href="./contents.html">目录</a></li>
-
 </ol>
 </div>
 <div id="page">
@@ -112,18 +112,34 @@ void Destroy()
     Destroy();
     return 0;
 }</pre>
-<p>这一串代码值得注意的地方有两个，一个是函数DL_SetRenderDrawBlendMode，设置了渲染的颜色混合模式，这里使用了SDL_BLENDMODE_BLEND参数，表示支持alpha混合模式，也就是保留透明度，可以看到截图的Rect2与Rect3的区别，再有就是函数SDL_RenderPresent，将我们对窗口的操作呈现在窗口上，其他绘图函数的参数比较简单，就不增加篇幅去解说了</p>
-<center><img  src="scr_shoot/06_2.png" class="scr_shoot"></img><div class="t">效果图</div></center>
-<div align="center"> <a href="#top" rel="goto Top" ><div id="gotop">回到顶部</div></a></div>
+	<p>这一串代码值得注意的地方有两个，一个是函数DL_SetRenderDrawBlendMode，设置了渲染的颜色混合模式，这里使用了SDL_BLENDMODE_BLEND参数，表示支持alpha混合模式，也就是保留透明度，可以看到截图的Rect2与Rect3的区别，再有就是函数SDL_RenderPresent，将我们对窗口的操作呈现在窗口上，其他绘图函数的参数比较简单，就不增加篇幅去解说了</p>
+	<center><img  src="scr_shoot/06_2.png" class="scr_shoot"></img><div class="t">效果图</div></center>
+	<div align="center">
+		<a href="#top" rel="goto Top" >
+			<div id="gotop">回到顶部</div>
+		</a>
+	</div>
+
 </div>
-<div id="prev">
-<a href="05_op_surface.html" >&lt; 上一课</a></div>
-<div id="next">
-<a href="07_rendering_surface.html" rel="next class">下一课 &gt;</a></div>
-<div id="img_view"><div align="center"><img id="img_show"></img></div></div>
-<div id="cpr"><a href="http://tieba.baidu.com/f?kw=dxkite">&copy;2014-2015 DXkite all rights reserved.</a></div>
+
+
+	<div id="prev">
+		<a href="05_op_surface.html" >&lt; 上一课</a>
+	</div>
+	<div id="next">
+		<a href="07_rendering_surface.html" rel="next class">下一课 &gt;</a>
+	</div>
+	<div id="img_view">
+		<div align="center">
+			<img id="img_show"></img>
+		</div>
+	</div>
+	<div id="cpr"><a href="http://tieba.baidu.com/f?kw=dxkite">&copy;2014-2015 DXkite all rights reserved.</a></div>
+
+
 
 
 </div>
+
 </body>
 </html>
