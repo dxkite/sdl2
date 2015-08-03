@@ -192,4 +192,12 @@ font-weight:bold;
 color:red;
 font-weight:bolder;
 }
-
+p
+{
+	word-wrap: break-word ;  
+	white-space : normal  ;
+	white-space: pre-wrap ; 
+	white-space: -moz-pre-wrap ; 
+	white-space: -pre-wrap ;
+	white-space: -o-pre-wrap ;
+}
