@@ -158,9 +158,12 @@ pre {
 	padding-right: 15px;
 	padding-bottom: 10px;
 	padding-left: 15px;
-	white-space: pre-wrap;
-	word-break: break -all;
-	word-wrap: break -word;
+	word-wrap: break-word ;  
+	white-space : normal  ;
+	white-space: pre-wrap ; 
+	white-space: -moz-pre-wrap ; 
+	white-space: -pre-wrap ;
+	white-space: -o-pre-wrap ; 
 	background-position: 50% 0%;
 	background-repeat: initial initial;
 }
