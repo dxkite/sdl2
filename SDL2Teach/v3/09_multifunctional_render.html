@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--  
+Copyright &copy; dxkite all rights reserved.
+SDL2 Teach Simple Web Page Code
+SDL2教程简单网页代码
+Copyright &copy; 2014-2015 冯世昌 保留所有权利  
+ -->
+<meta content="text/html;charset=UTF-8" http-equiv="Content-Type">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+<script src="./component/js/common.js" type="text/javascript" ></script>
+<link rel="stylesheet" type="text/css" href="./component/css/common.css"></link>
+<title>SDL2教程-多功能的渲染器</title>
+</head>
+<body id="top" >
+
+<div id="loading">
+加载中……
+</div>
+<div id="loaded">
+<div id="title">多功能的渲染器<a id="ctrl_menu" ><img class="menu_ico" src="./component/media/menu.png"/></a></div>
+<div id="menu">
+<ol class="menu_list">
+<li><a href="http://tieba.baidu.com/f?kw=c4droid">C4droid吧</a></li>
+<li><a href="./code/09_multifunctional_render.zip" download>下载本课源码</a></li>
+<li><a href="./contents.html">目录</a></li>
+
+</ol>
+</div>
+<div id="page">
+<center><span class="date">2015年8月3日 13:54:36最后编辑</span></center>
+<p>当我们用渲染器渲染窗口的时候有没有想过用他来渲染其他的东西？因为它很方便，不是么？今天我们就用它来尝试操作其他的东西，先，我们先来控制表面，代码什么的就是前几课的Window类，只改变一下Window::draw的类容就好，来看看代码，我们要调控Surface，那么就为它创建一个渲染器呐：</p>
+<pre>bool Window::draw()
+{
+
+    SDL_Renderer *surface_render=nullptr;
+    SDL_Surface *surface=nullptr;
+    SDL_Rect  surface_rect= {0,0,200,200};
+    //创建一个表面
+    surface=SDL_CreateRGBSurface(0,200,200,32,0,0,0,0);
+    if (surface==nullptr)
+    {
+        SDL_Log("Create RGB Surface error");
+        return false;
+    }
+    //为表面创建渲染器
+    surface_render=SDL_CreateSoftwareRenderer(surface);
+    if (surface_render==nullptr)
+    {
+        SDL_Log("Create Software Renderer error");
+        return false;
+    }</pre>
+<p>这一部分是创建渲染器的部分，SDL提供了函数SDL_CreateSoftwareRenderer来创建表面的渲染器，从名字可以看到是一个软件渲染器，与Window的硬件渲染器是有区别的，每个窗口，硬件渲染器只有一个，软件的随意，来看看函数SDL_CreateRGBSurface通过这个函数我们可以创建一个空表面，第一个参数我从参考中也没发现有什么说明，只知道用0就行，接下来的两个参数是宽高，在下一个是像素长度32位，最后的4个是制定像素的格式，这里填上了0，表示用默认的方式，接下来是比较熟习的绘制</p>
+<pre>    SDL_RenderClear(surface_render);
+    SDL_SetRenderDrawColor(surface_render, 0xff, 0xff, 0,0xff);
+    SDL_RenderFillRect(surface_render,nullptr);
+    SDL_RenderPresent(surface_render);
+    Window::renderSurface(surface,nullptr,&surface_rect);
+    SDL_FreeSurface(surface);
+}
+</pre>
+<p>可以看到是一个中规中矩的绘制和渲染，看看效果：</p>
+<center><img  src="scr_shoot/09_1.png" class="scr_shoot"></img><div class="t">效果图</div></center>
+<p>接下来不要忽略那个纹理，还是那个代码，把函数Window重写一下：</p>
+<pre>bool Window::draw()
+{
+SDL_Texture *texture=nullptr;
+ SDL_Rect  texture_rect= {10,10,200,200};
+texture=SDL_CreateTexture(m_render,SDL_PIXELFORMAT_RGBA8888,SDL_TEXTUREACCESS_TARGET,200,200);
+</pre>
+<p>可以看到比刚刚小了一点，主要是用到了Window的函数来看看创建纹理的函数SDL_CreateTexture，要创建渲染器可操作的纹理，只能是使用这个函数，而不是像表面那样随便一个都行，看看第一个参数，还是渲染器，窗口的渲染器，通过哪个渲染器创建的窗口就只能是那个渲染器用，在看下个参数，是一个可选参数，指明了像素的格式，取代了SDL_CreateRGBSurface的最后四个参数，是不是方便了些，然后就是下一个参数，要想纹理能够被渲染器操控，只能填SDL_TEXTUREACCESS_TARGET，最后两个参数便是纹理的长宽。</p>
+<pre>
+SDL_SetRenderTarget(m_render,texture);
+Window::clear();
+Window::drawWindowBorder({0xff,0,0,0xff});
+Window::present();
+SDL_SetRenderTarget(m_render,nullptr);
+SDL_RenderCopy(m_render,texture,nullptr,&texture_rect);
+}</pre>
+<p>用渲染器操作纹理最重要的函数便是SDL_SetRenderTarget，这个函数将改变渲染器的目标，将其从上一个目标改成目前我们要操作的纹理，操作完了后，再设置一次目标，可以看到弄成了nullptr，又是空指针，这里将会将渲染目标调整为默认目标（一般是窗口）然后就继续用了，可以看到我在使用Window的内部函数的时候我都加了前缀，类似命名空间一样，防止函数调用错误，看看运行效果：</p>
+<center><img  src="scr_shoot/09_2.png" class="scr_shoot"></img><div class="t">效果图</div></center>
+
+<div align="center"> <a href="#top" rel="goto Top" ><div id="gotop">回到顶部</div></a></div>
+</div>
+<div id="prev">
+<a href="08_set_viewport.html" >&lt; 上一课</a></div>
+<div id="next">
+<a href="10_use_timer.html" rel="next class">下一课 &gt;</a></div>
+<div id="img_view"><div align="center"><img id="img_show"></img></div></div>
+<div id="cpr"><a href="http://tieba.baidu.com/f?kw=dxkite">&copy;2014-2015 DXkite all rights reserved.</a></div>
+
+
+</div>
+</body>
+</html>
