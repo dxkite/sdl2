@@ -1,0 +1,62 @@
+<!DOCTYPE html><html>
+<head>
+<!--  
+Copyright &copy; dxkite all rights reserved.
+Copyright &copy; 2014-2015 冯世昌 保留所有权利  
+ -->
+<meta content="text/html;charset=UTF-8" http-equiv="Content-Type">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+</head><body bgcolor="#b3ffb3" >
+<title>显示字体</title>
+<h2>显示字体</h2>
+本节，我们讲解的是显示文字。
+<br>显示文字不是SDL2的一个标准库。而是一个扩展库。让我们把它包含进源代码文件吧！
+<pre><b><i>#include "SDL2/SDL_ttf.h"</i></b></pre>
+然后确定一下文字使用的字体的路径，并设置
+<pre><b><i>string Fonts = "/system/fonts/DroidSansFallback.ttf";</i></b></pre>如果不设置的话。会导致文字语法显示。来编写显示字体的模块：
+<pre><b><i>SDL_Texture *Text(std::string Fonts, int FontSize, SDL_Renderer * Render,
+std::string FontsPath,int r=0,int g=0,int b=0,int a=0)</i></b></pre>
+这里一共接受好像有7个参数，分别为
+<UL>
+<Li>字体路径
+<Li>渲染器
+<Li>字体大小
+<Li>颜色RGBA
+</UL>
+首先对字体进行初始化。
+<pre><b><i>// 初始化字体
+	TTF_Init();
+	TTF_Font *font = NULL;
+	font = TTF_OpenFont(FontsPath.c_str(), FontSize);</i></b></pre>
+设置一下字体的颜色。
+<pre><b><i>	SDL_Color color;
+	color.r =r;
+	color.g =g;
+	color.b =b;
+	color.a = a;</i></b></pre>
+	SDL_Color结构体的原型
+	<pre><b><i>
+	 SDL_Color
+	 {
+	 Uint8 r,g,b,a;
+	 };</i></b></pre>
+	 由表面创建一个Texture
+	 <pre><b><i>extern DECLSPEC SDL_Surface * SDLCALL TTF_RenderUTF8_Blended(TTF_Font *font,const char *text, SDL_Color fg);</i></b></pre>
+	 <pre><b><i>	SDL_Surface *temp = NULL;
+	temp = TTF_RenderUTF8_Blended(font, Fonts.c_str(), color);</i></b></pre>
+接下来是应用和退出字体<pre><b><i>
+
+	fonts = SDL_CreateTextureFromSurface(Render, temp);
+	SDL_FreeSurface(temp);
+	TTF_CloseFont(font);
+	if (fonts != NULL)
+		return fonts;
+}</i></b></pre>
+接下来，使用试试：
+<pre><b><i>	BiltTexture(0, 0, Text("DXkite",20,Render,Fonts,20,100), Render);</i></b></pre>运行效果图：
+<img src="">
+<br><a href="http://pan.baidu.com/share/link?shareid=3481470553&uk=1413256347">本课源码下载</a><br>
+对于以上教程有什么意见过建议。欢迎欢迎上贴吧<a href="http://tieba.baidu.com/f?&kw=dxkite&jump_tieba_native=1&mo_device=1">@DXkite</a>
+<hr><h3>DXkite 于2014-6-23</h3>
+</body></html>

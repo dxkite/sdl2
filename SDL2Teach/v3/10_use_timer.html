@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--  
+Copyright &copy; dxkite all rights reserved.
+SDL2 Teach Simple Web Page Code
+SDL2教程简单网页代码
+Copyright &copy; 2014-2015 冯世昌 保留所有权利  
+ -->
+<meta content="text/html;charset=UTF-8" http-equiv="Content-Type">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+<script src="./component/js/common.js" type="text/javascript" ></script>
+<link rel="stylesheet" type="text/css" href="./component/css/common.css"></link>
+<title>SDL2教程-第十课 计时器的使用</title>
+</head>
+<body id="top" >
+
+<div id="loading">
+加载中……
+</div>
+<div id="loaded">
+<div id="title">第十课 计时器的使用<a id="ctrl_menu" ><img class="menu_ico" src="./component/media/menu.png"/></a></div>
+<div id="menu">
+<ol class="menu_list">
+<li><a href="http://tieba.baidu.com/f?kw=c4droid">C4droid吧</a></li>
+<li><a href="./code/10_use_timer.zip" download>下载本课源码</a></li>
+<li><a href="./contents.html">目录</a></li>
+
+</ol>
+</div>
+<div id="page">
+<center><span class="date">2015年8月4日 13:49:06</span></center>
+<p>本课将教大家使用计时器，计时器是一个记录时间的结构体，可以用来做回调函数用，定时执行一段代码，我们来看看怎么用它,代码还是之前的代码，又只改Window::draw部分</p>
+<pre>    TTF_Init();
+    TTF_Font *myfont=TTF_OpenFont("my.ttf",20);
+    if (myfont==nullptr)
+    {
+        SDL_Log("Open Font Error %s",SDL_GetError());
+        return false;
+    }
+//记录时间
+    Uint32 times=0;
+//退出计时器
+    bool Quit=false;
+//文本储存
+    char text[80];
+// 计时器
+    SDL_TimerID timer=SDL_AddTimer(2000,callbackfunc,&Quit);</pre>
+<p>看到这里，SDL_AddTimer增加一个计时器，有点像吐槽的是他为什么是SDL_TimerID而不是SDL_Timer来解释一下参数，第一个参数是回调延迟时间，第二个是时间到了后调用的函数，第三个是传递的一个地址，可以是很多东西，这里我们传递了一个bool值的地址，我们要回调函数调用后改变bool的值，来看看回调函数：</p>
+<pre>Uint32 callbackfunc(Uint32 interval, void *param)
+{
+    //调整退出
+    *(bool*)param=true;
+    return interval;
+}</pre>
+<p>回调函数的作用就是将输入的Quit值改为true，看看Quit的值有什么用：</p>
+<pre>    SDL_Rect rect;
+    rect.x=100;
+    rect.y=100;
+    // 显示表面
+    SDL_Surface *tmp=nullptr;
+    // 计时器运行的显示
+    while(!Quit)
+    {</pre>
+<p>是了，在这里控制这个循环，看看循环里的东西：</p>
+<pre>        Window::clear();
+        times=SDL_GetTicks();
+        sprintf(text,"Time Passed:%d",times);
+        tmp=TTF_RenderUTF8_Blended(myfont,text, {0,0,0xff,0xff});
+        rect.w=tmp->w;
+        rect.h=tmp->h;
+        Window::renderSurface(tmp,nullptr,&rect);
+        SDL_FreeSurface(tmp);
+        tmp=nullptr;
+        Window::present();
+    }</pre>
+<p>在循环里我们用函数SDL_GetTicks获取了当前的时钟，并且把它输出渲染到屏幕上，这是运行时的样子：</p>
+<center><img  src="scr_shoot/10_1.png" class="scr_shoot"></img><div class="t">效果图</div></center>
+<p>当循环运行了大概2000毫秒后，计时器回调了函数callbackfunc，将Quit的值改为真，结束循环，之后运行以下代码</p>
+<pre>    //计时器完成后的显示
+    Window::clear();
+    sprintf(text,"Time Pass:%d,callback function be call",times);
+    tmp=TTF_RenderUTF8_Blended(myfont,text, {0xff,0,0,0xff});
+    rect.w=tmp->w;
+    rect.h=tmp->h;
+    Window::renderSurface(tmp,nullptr,&rect);
+    SDL_FreeSurface(tmp);
+    tmp=nullptr;
+    TTF_Quit();
+    SDL_RemoveTimer(timer);</pre>
+<p>这段代码清理了渲染器，渲染了结束时的界面，函数SDL_RemoveTimer移除了计时器看看效果</p>
+<center><img  src="scr_shoot/10_2.png" class="scr_shoot"></img><div class="t">效果图</div></center>
+<p>使用计时器的时后注意在初始化SDL2的时候初始化一下计时器SDL_Init(SDL_INIT_TIMER)，也可以直接初始化全部：SDL_Init(SDL_INIT_EVERYTHING);在本代码中初始化了全部； </p>
+<div align="center"> <a href="#top" rel="goto Top" ><div id="gotop">回到顶部</div></a></div>
+</div>
+<div id="prev">
+<a href="09_multifunctional_render.html" >&lt; 上一课</a></div>
+<div id="next">
+<a href="11_touch_event.html" rel="next class">下一课 &gt;</a></div>
+<div id="img_view"><div align="center"><img id="img_show"></img></div></div>
+<div id="cpr"><a href="http://tieba.baidu.com/f?kw=dxkite">&copy;2014-2015 DXkite all rights reserved.</a></div>
+
+
+</div>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html><html>
+<head>
+<!--  
+Copyright &copy; dxkite all rights reserved.
+Copyright &copy; 2014-2015 冯世昌 保留所有权利  
+ -->
+<meta content="text/html;charset=UTF-8" http-equiv="Content-Type">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+</head><body bgcolor="#b3ffb3" >
+<title>触屏事件</title>
+<h2>触屏事件</h2>
+上节我们学习了几个关于游戏图片的处理，但是游戏是人来玩的，当然少不了人的存在。那么如何获取人的行为呢？SDL2定义的一个SDL_Event用来处理用户事件。
+<br>下面介绍几个常用事件
+<UL>
+<Li> SDL_KeyboardEvent key 键盘事件数据
+<Li> SDL_MouseMotionEvent motion 鼠标动作事件数据
+<Li> SDL_MouseButtonEvent
+button 鼠标按键事件数据
+<Li> SDL_MouseWheelEvent
+wheel
+鼠标滚轮事件数据
+<Li> SDL_TouchFingerEvent
+tfinger 触屏事件数据
+</UL>
+本节我们要用到的是触屏事件数据：
+<UL>
+<Li>Uint32
+type 事件类型
+<UL>
+<Li>SDL_FINGERMOTION 移动事件
+<Li>SDL_FINGERDOWN 按下事件
+<Li>SDL_FINGERUP 抬起事件
+</UL>
+<Li> Uint32
+timestamp
+事件戳
+<Li>SDL_TouchID
+touchId
+触屏设备索引
+<Li>SDL_FingerID
+fingerId
+触屏索引
+<Li>float
+x
+初位置x(0～1)
+<Li>float
+y
+初位置y(0～1)
+<Li>float
+dx
+末位置 x(0～1)
+<Li>float
+dy
+末位置y(0～1)
+<Li>float
+pressure
+按压(0～1)
+</UL>
+通过以上几个数据，相信你能很快的判断一个触屏事件的性质。即游戏玩家想要干什么。比如现在游戏中常用到的手势判断，通过以上数据将很容易实现。
+<br>本节不接触比较复杂的使用方式，只求入门。
+<pre><b><i>
+	SDL_Event event;
+	while (true)
+	{
+		while (SDL_PollEvent(&event))
+		{
+			if (event.type == SDL_FINGERUP)
+			{
+				Tx = 0.0;
+				Ty = 0.0;
+			}
+			Tx = event.tfinger.x;
+			Ty = event.tfinger.y;
+		}</i></b></pre>
+上面代码中，实现了获取触点位置。
+<br><b><i>SDL_PollEvent(&event)</i></b>函数用来判断是否有事件发生，如果发生了，就执行下面的代码。
+<br>如果你想使用对事件的动作进行判断，可以使用dx,dy。这两个数据储存了变化后的触点位置信息，也不知道他的获取时间是多长(我猜测大概是一个事件戳的长度吧)，凑合着用吧，当然那是偷懒的做法，如果可以还是自己编写一个函数好一些。
+<br><a href="http://pan.baidu.com/share/link?shareid=3481470553&uk=1413256347">本课源码下载</a><br>
+对于以上教程有什么意见过建议。欢迎欢迎上贴吧<a href="http://tieba.baidu.com/f?&kw=dxkite&jump_tieba_native=1&mo_device=1">@DXkite</a>
+<hr><h3>DXkite 于2014-6-25</h3>
+</body></html>

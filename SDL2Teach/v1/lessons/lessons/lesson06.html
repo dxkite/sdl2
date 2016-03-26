@@ -1,0 +1,129 @@
+<!DOCTYPE html><html>
+<head>
+<!--  
+Copyright &copy; dxkite all rights reserved.
+Copyright &copy; 2014-2015 冯世昌 保留所有权利  
+ -->
+<meta content="text/html;charset=UTF-8" http-equiv="Content-Type">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+</head><body bgcolor="#b3ffb3" >
+<title>键盘事件</title>
+<h2>键盘事件</h2>
+通过上节，我们知道了如何或许触屏事件，但是游戏不只是触屏的，触屏只适用于像Android机这样的手机使用，此书的所有代码都是在Android平台用C4droid调试的，不能对键盘实现很好的支持，或者说它根本就弹不出输入法来，更别提输入了。
+<br>为了能够实现键盘控制，浏览了官网的文档。发现了一个可以调出输入法的函数我<b><i>SDL_StartTextInput()</i></b>由名称可以知道这个函数是用来开始获取文本输入的。所以，当我们使用字母或数字键是它把事件作为文本输入而不是按键事件(吐槽一句，SDL2.0的文本输入真的不咋滴)，所以我们将使用上下左右来调试程序。
+<br>
+先，让我们看看<b><i>SDL_KeyboardEvent</i></b>的内容：
+<UL Type="Square">
+<Li>Uint32
+type
+事件类型
+<UL>
+<Li>SDL_KEYDOWN 按下键
+<Li>SDL_KEYUP 抬起键
+</UL> 
+<Li>Uint32
+timestamp
+事件事件戳
+<Li>Uint32
+windowID
+获取输入焦点的窗口索引
+<Li>Uint8
+state
+键盘状态
+<UL>
+<Li>SDL_PRESSED 按下
+<Li>SDL_RELEASED 释放
+</UL>
+<Li>
+Uint8
+repeat
+重复
+<Li>
+SDL_Keysym
+keysym
+描绘了按下过释放事件的内含
+<UL>
+<Li>SDL_Scancode
+scancode
+物理的按键码
+<UL>
+<Li>....由于很多，请大家去官网查询
+</UL>
+<Li>SDL_Keycode
+sym
+SDL虚拟的按键码
+<UL>
+<Li>....由于很多，请大家去官网查询
+</UL>
+<Li>Uint16
+mod
+现在的键盘模式
+</UL>
+</UL>
+说说怎么使用把：
+<pre><b><i>while (SDL_PollEvent(&event))
+		{</i></b></pre>这里还是跟以前一样，判断是否有事件发生。
+<pre><b><i>if (event.type == SDL_KEYDOWN)</i></b></pre>检测按下事件。
+<pre><b><i>switch (event.key.keysym.sym)</i></b></pre>筛选键盘码：
+<pre><b><i>{ 
+case SDLK_UP:
+ {
+ BiltTexture(0, 0, Text("SDLK_UP", 40, Render, Fonts, 255,
+255), Render);
+ break;
+ } 
+case SDLK_DOWN: 
+{ 
+BiltTexture(0, 0, Text("SDLK_DOWN", 40, Render, Fonts, 255, 255), Render);
+ break;
+}
+ case SDLK_LEFT:
+{
+BiltTexture(0, 0, Text("SDLK_LEFT", 40, Render, Fonts, 255,
+255), Render); break;
+ } 
+case SDLK_RIGHT: 
+{
+ BiltTexture(0, 0,Text("SDLK_RIGHT", 40, Render, Fonts, 255, 255), Render);
+break;
+ } 
+case SDLK_1: 
+{ 
+BiltTexture(0, 0, Text("SDLK_1", 40, Render, 
+Fonts, 255, 255), Render);
+ break;
+} case SDLK_2: 
+{
+ BiltTexture(0, 0, Text("SDLK_2", 40, Render, Fonts, 255, 255), Render); 
+break;
+} case SDLK_3: 
+{
+BiltTexture(0, 0, Text("SDLK_3", 40, Render,  Fonts, 255, 255), Render);
+break;
+} 
+}</i></b></pre>
+在本人手机上上面的代码出了上下左右可以响应之外，其他代码无法响应，电脑上可以全部响应。如果一部分代码看不懂，请回头看看前面的教程或看源代码。如果你想知道你按下了什么键，还有一种方式:
+<pre><b><i>
+while (true)
+{
+	while (SDL_PollEvent(&event))
+	{
+		if (event.type == SDL_FINGERDOWN)
+		{
+				Window = SDL_GetKeyboardFocus();
+				SDL_StartTextInput();
+		}
+T = SDL_GetKeyName(event.key.keysym.sym);
+BiltTexture(0, 100,Text(T, 40, Render, Fonts, 255, 255), Render);
+if (T == "A")
+	BiltTexture(0, 0,
+Text("你按下了A键", 40, Render, Fonts, 255,255), Render);
+}
+</i></b></pre>
+吐槽一句，在我这里我按下A键它是'键，B键才是A键。无语了的说。
+<br>今天的就到这里了。下节我们讲播放音乐。
+<br><a href="http://pan.baidu.com/share/link?shareid=3481470553&uk=1413256347">本课源码下载</a><br>
+对于以上教程有什么意见过建议。欢迎欢迎上贴吧<a href="http://tieba.baidu.com/f?&kw=dxkite&jump_tieba_native=1&mo_device=1">@DXkite</a>
+<hr><h3>DXkite 于2014-6-24</h3>
+</body></html>

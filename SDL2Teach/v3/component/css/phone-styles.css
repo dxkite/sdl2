@@ -1,0 +1,209 @@
+/* new styles by dxkite*/
+/*
+*  SDL2教程网页组件
+*  7月11日 2015
+*  © DXkite
+*/
+body {
+	font-family: "Courier New", Courier, Arial, courier, monospace ;
+	margin: 0px;
+	padding: 0px;
+	background-image: url( ../media/bg.gif);
+font-size: 16px; 
+line-height: 1.5em;
+background-position: initial initial; background-repeat: initial initial;
+}
+
+h1 {
+	font-size: 12px;
+	padding: 6px;
+	font-weight: normal;
+	background: -webkit-linear-gradient(left, rgba(255,255,0,0.7), rgba(255,255,0,0.05));
+	/* Safari 5.1 - 6.0*/
+	background: -o-linear-gradient(right, rgba(255,255,0,0.7), rgba(255,255,0,0.05));
+	/* Opera 11.1 - 12.0*/
+	background: -moz-linear-gradient(right, rgba(255,255,0,0.7), rgba(255,255,0,0.05));
+	/* Firefox 3.6 - 15*/
+	background: linear-gradient(to right, rgba(255,255,0,0.7), rgba(255,255,0,0.05));
+	/* 标准的语法（必须放在最后）*/
+	
+}
+h2 {
+	font-size: 12px;
+	padding: 6px;
+	font-weight: normal;
+	background: -webkit-linear-gradient(left, rgba(0,255,0,0.7), rgba(0,255 ,0,0.05));
+	/* Safari 5.1 - 6.0*/
+	background: -o-linear-gradient(right, rgba(0,255,0,0.7), rgba(0,255,0,0.05));
+	/* Opera 11.1 - 12.0*/
+	background: -moz-linear-gradient(right, rgba(0,255,0,0.7), rgba(0,255,0,0.05));
+	/* Firefox 3.6 - 15*/
+	background: linear-gradient(to right, rgba(0,255,0,0.7), rgba(0,255,0,0.05));
+	/* 标准的语法（必须放在最后）*/
+	
+}
+h3 {
+	font-size: 12px;
+	padding: 6px;
+	font-weight: normal;
+	background: -webkit-linear-gradient(left, rgba(0,0,255,0.7), rgba(0,0,255,0.05));
+	/* Safari 5.1 - 6.0*/
+	background: -o-linear-gradient(right, rgba(0,0,255,0.7), rgba(0,0,255,0.05));
+	/* Opera 11.1 - 12.0*/
+	background: -moz-linear-gradient(right, rgba(0,0,255,0.7), rgba(0,0,255,0.05));
+	/* Firefox 3.6 - 15*/
+	background: linear-gradient(to right, rgba(0,0,255,0.7), rgba(0,0,255,0.05));
+	/* 标准的语法（必须放在最后）*/
+	
+}
+h4 {
+	font-size: 12px;
+	padding: 6px;
+	font-weight: normal;
+	background: -webkit-linear-gradient(left, rgba(0,255,255,0.7), rgba(0,255,255,0.05));
+	/* Safari 5.1 - 6.0*/
+	background: -o-linear-gradient(right, rgba(0,255,255,0.7), rgba(0,255,255,0.05));
+	/* Opera 11.1 - 12.0*/
+	background: -moz-linear-gradient(right, rgba(0,255,255,0.7), rgba(0,255,255,0.05));
+	/* Firefox 3.6 - 15*/
+	background: linear-gradient(to right, rgba(0,255,255,0.7), rgba(0,255,255,0.05));
+	/* 标准的语法（必须放在最后）*/
+	
+}
+h5 {
+	font-size: 12px;
+	padding: 6px;
+	font-weight: normal;
+	background: -webkit-linear-gradient(left, rgba(255,0,255,0.7), rgba(255,0,255,0.05));
+	/* Safari 5.1 - 6.0*/
+	background: -o-linear-gradient(right, rgba(255,0,255,0.7), rgba(255,0,255,0.05));
+	/* Opera 11.1 - 12.0*/
+	background: -moz-linear-gradient(right, rgba(255,0,255,0.7), rgba(255,0,255,0.05));
+	/* Firefox 3.6 - 15*/
+	background: linear-gradient(to right, rgba(255,0,255,0.7), rgba(255,0,255,0.05));
+	/* 标准的语法（必须放在最后）*/
+	
+}
+.say {
+	padding: 6px;
+	margin: 10px ;
+	margin-left: 0px;
+	font-size: 12px;
+	background: -webkit-linear-gradient(left, rgba(255,0,0,0.7), rgba(255,0,0,0.05));
+	/* Safari 5.1 - 6.0*/
+	background: -o-linear-gradient(right, rgba(255,0,0,0.7), rgba(255,0,0,0.05));
+	/* Opera 11.1 - 12.0*/
+	background: -moz-linear-gradient(right, rgba(255,0,0,0.7), rgba(255,0,0,0.05));
+	/* Firefox 3.6 - 15*/
+	background: linear-gradient(to right, rgba(255,0,0,0.7), rgba(255,0,0,0.05));
+	/* 标准的语法（必须放在最后）*/
+	
+}
+
+
+.c_list {
+	list-style: none;
+	padding: 0px;
+	margin: 10px;
+	margin-top:50px;
+	border-radius: 6px;
+	border: 1px solid #aaa;
+	padding-bottom: 10px;
+}
+.c_list>li {
+	padding: 5px;
+	padding-left: 10px ;
+	margin: 0px;
+	border-bottom: #aaa 1px solid;
+	text-align: left;
+}
+.c_list>li .ico {
+	float: right;
+}
+#computer,#phone {
+	display: none;
+}
+
+pre {
+	margin-top: 15px;
+	margin-right: auto;
+	margin-bottom: 15px;
+	margin-left: auto;
+	font-family: 'courier new';
+	font-size: 12px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+	line-height: 20px;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: rgb(221, 221, 221);
+	border-right-color: rgb(221, 221, 221);
+	border-bottom-color: rgb(221, 221, 221);
+	border-left-color: rgb(221, 221, 221);
+	border-image: initial;
+	border-left-width: 4px;
+	background-image: url(../media/codecolorer_bg.gif);
+	background-attachment: initial;
+	background-origin: initial;
+	background-clip: initial;
+	background-color: rgb(251, 251, 251);
+	background-size: initial;
+	padding-top: 10px;
+	padding-right: 15px;
+	padding-bottom: 10px;
+	padding-left: 15px;
+	word-wrap: break-word ;  
+	white-space : normal  ;
+	white-space: pre-wrap ; 
+	white-space: -moz-pre-wrap ; 
+	white-space: -pre-wrap ;
+	white-space: -o-pre-wrap ; 
+	background-position: 50% 0%;
+	background-repeat: initial initial;
+}
+/*
+#img_show
+{
+	width:auto;
+	height:auto;
+	overflow:auto;
+}
+*/
+#menu {
+	display: none;
+	position: fixed;
+	margin: 0px;
+	right: 0px ;
+	top : 44px;
+}
+#ctrl_menu {
+	position: fixed;
+	right: 10px;
+	top: 10px;
+}
+
+.t
+{
+font-size: 12px;
+text-align:center; 
+}
+.scr_shoot
+{
+	width:100px;
+	height:60px;
+}
+.date
+{
+border: rgba(0,0,255,0.8) 1px dashed;
+background-color:rgba(0,255,0,0.3);
+text-align:center;
+padding:2px;
+font-size:12px;
+line-height:12px;
+}

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--  
+Copyright &copy; dxkite all rights reserved.
+SDL2 Teach Simple Web Page Code
+SDL2教程简单网页代码
+Copyright &copy; 2014 冯世昌 保留所有权利  
+ -->
+<meta content="text/html;charset=UTF-8" http-equiv="Content-Type">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+ <link type="text/css" rel="stylesheet" href="../../css/dxkite.css"/>
+</head>
+<body id=top>
+<title>第一个SDL2程序</title>
+<h3 id=header>第一个SDL2程序</h3>
+<div id="content">
+<!--  编辑区  -->
+<div class=textbox>
+<div class=textbox>
+<div class=title3>致初学者</div><n>
+教程或许有些看不懂的亲，那些结构体是什么含义先不用管，先记着它的特性及用法，用着用着大概就会明白的，真的哦～我就是这么过来的。</n>
+</div>
+<p>哈喽～我又来写教程了，没错，还是我……<img class=f src="../../image/0.png"/> 就我一个人写这个，不是我是谁？啦啦～本节，我们学习的是:SDL2的初始化+简单绘制窗口+退出,先把头文件加上</p>
+<div class=code>#include &lt;SDL2/SDL.h&gt;</div>
+<p>好了，现在可以使用SDL2函数了,先申明两个变量</p>
+<pre class=code>// 窗口
+SDL_Window *Window = NULL;
+// 窗口表面
+SDL_Surface *WindowScreen = NULL;
+</pre>
+<p>第一个变量，正如它上方的注释说的那样，不对，光是类型就可以知道它是什么，一个窗口，我们就是在上面画东西的，还有一个是<code>Surface</code>翻译过来就是表面,不用解释了吧？申明之后我们来看看程序的一个小块，初始化部分</p>
+<pre class=code>//初始化函数
+int Init()
+{
+  SDL_Init(SDL_INIT_VIDEO);</pre>
+  <p>卡！第一个新函数<code>SDL_Init</code>看名字就知道是初始化用的，那么它的参数是什么含义呢？答案是被初始化的东西啦～看看它可以初始化多少东西～</p>
+  <center>
+<table border>
+<tbody>
+<tr>
+<td><code>SDL_INIT_TIMER</code></td><td>计时器子系统</td></tr>
+<tr>
+<td><code>SDL_INIT_AUDIO</code></td><td>音频子系统</td></tr>
+<tr>
+<td><code>SDL_INIT_VIDEO</code></td><td>视频子系统</td>
+</tr>
+<tr>
+<td><code>SDL_INIT_JOYSTICK</code></td><td>控制杆子系统</td>
+</tr>
+
+<tr>
+<td><code>SDL_INIT_HAPTIC</code></p>
+</td>
+<td>触控(力量反馈)子系统
+</td>
+</tr>
+<tr>
+<td><code>SDL_INIT_GAMECONTROLLER</code>
+</td>
+<td>控制器子系统
+</td>
+</tr>
+<tr>
+<td><code>SDL_INIT_EVENTS</code>
+</td>
+<td>事件子系统</td>
+</tr>
+<tr>
+<td><code>SDL_INIT_EVERYTHING</code>
+</td>
+<td>所有的子系统
+</td>
+</tr>
+<tr>
+<td><code>SDL_INIT_NOPARACHUTE</code>
+</td>
+<td>
+不要捕获致命的信息
+</td>
+</tr>
+</tbody>
+</table>
+</center>
+<p>不错哎，挺多的，本节我们只需要初始化管理视频的部分就好，多了也没啥用,所以用<code>SDL_INIT_VIDEO</code>就好，其他留着吧，蒽，初始化成功返回0，让我们接着往下看</p>
+ <pre class=code>// 创建窗口
+  Window = SDL_CreateWindow("SDL_Window", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 240, 400, SDL_WINDOW_SHOWN);</pre>
+  <p>卡……有木有发现我们刚刚的的Window=NULL？是了。我们的Create函数出来了～<code id="cw">SDL_CreateWindow</code>作用:创建一个窗口，参数，第一个参数，是窗口的窗口的标题，第二个，第三个都是位置信息，我们这里用的是<code>SDL_WINDOWPOS_CENTERED</code>指明处于显示器中心……好吧，在Android没有这些，所以，你最好还是填上两个数比如0啊1啊的，或者是<code>SDL_WINDOWPOS_UNDEFINED</code>未定义得了，这里我填了个240和300，毕竟要在电脑上运行，没有大小可不行，嘿嘿，第四个，第五个是窗口的宽度和高度，在Android上随便填，反正不管怎样都是全屏，最后一个参数是窗口的状态，这里填了个<code>SDL_WINDOW_SHOWN</code>，简单的显示窗口，还有其他的状态那个我就不多说了，想知道的自己去Wiki看看吧。下面判断一下创建好了没有～</p><pre class=code>  if (Window == NULL)
+    return -1;
+  // 获取Window的表面
+  WindowScreen = SDL_GetWindowSurface(Window);
+  if (WindowScreen == NULL)
+    return -2;
+  return 0;
+}</pre>
+<p>函数<code>SDL_GetWindowSurface</code>不用说了吧？接下来，看看收尾函数，清理内存</p>
+<pre class=code>//清理函数
+void Destroy()
+{
+  SDL_FreeSurface(WindowScreen);
+  SDL_DestroyWindow(Window);
+  SDL_Quit();
+}</pre><p>又不用说，看函数名就知道，最后一个<code>SDL_Quit</code>与初始化函数相对，退出～</p><pre class=code>int main(int args, char *argv[])
+{</pre><p>标准化的main函数，main函数必须这样申明哦～不然SDL2可不认你的主函数哦</p><pre class=code>  if (Init() != 0)
+    return -1;
+  //填充窗口
+  SDL_FillRect(WindowScreen, NULL, SDL_MapRGB(WindowScreen->format, 0xFF, 0x00, 0x00));</pre><p><div class=question><n>@且听风吟skb:不是三种颜色吗?怎么后面两个是一样的</n></div>啊嘞，函数有点多……嘿嘿，我偷懒了，先从里面开始，看看函数<code>SDL_MapRGB</code>这个函数用来创建一个Uint32的颜色，Uint32大致与<font color=#f00>u</font>nsigned <font color=#f00>int</font>相当，我们来看看第一个参数，我们是这样用的:<code>“WindowScreen->format”</code>表示的类型是<code> SDL_PixelFormat</code>获取了WindowScreen的一个成员format，格式，总而言之就是获取WindowScreen的像素格式，因为Uint32在储存空间里有32位，哪一位表示什么全凭个人喜好喽（至少我是这么看的），蒽，接下来的三个参数分别表示红色，绿色，蓝色，取值范围为0～255(十六进制:0x00~0XFF)，与美术上的三原色有点不同（我记得好像是红黄蓝）好了，看看理解没？理解了就看看外面的函数<code>SDL_FillRect</code>SDL Fill Rectangle 填充矩形，也是三个参数，第一个参数是被填充矩形的表面，第二个是填充的矩形大小，是一个SDL_Rect的类型
+  <pre class=textbox>typedef struct SDL_Rect
+{
+    int x, y;
+    int w, h;
+} SDL_Rect;</pre>有x,y,w,h四个成员，分别表示x,y,width,height，这里填写的是NULL，表示空，即默认值，就是全部填充。</p>
+<pre class=code>//更新窗口
+  SDL_UpdateWindowSurface(Window);
+  SDL_Delay(2000);</pre><p>更新窗口和暂停一下， <code>SDL_UpdateWindowSurface</code>更新窗口的表面，跟1.2版的<code>SDL_Flip</code>一个性质<code>SDL_Delay</code>暂停，单位是毫秒，把窗口停留2秒～</p>
+<pre class=code>  Destroy();
+  return 0;
+}</pre>
+<p>哦啦。可以运行了～run....大大的全屏中国红～</p>
+<img class=scr src="../../image/0"/>
+</div>
+
+<!--  编辑区  -->
+</div>
+<div id=bottom>
+<a href="../../../code/nc_0_1.cpp.html">code</a>
+<a href="none.html#r">反馈</a>
+<a href="aboutSDL2.html">SDL2简介</a>
+<a href="contents.html">目录</a>
+<a href="nc_1.html">下一节</a>
+<a href="#top">回到顶部</a>
+</div>
+</div>
+
+</div>
+<div id=copr>
+Copyright &copy; 2014 冯世昌 保留所有权利
+</div>
+</body>
+</html>

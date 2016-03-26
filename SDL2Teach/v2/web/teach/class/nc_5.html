@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--  
+Copyright &copy; dxkite all rights reserved.
+SDL2 Teach Simple Web Page Code
+SDL2教程简单网页代码
+Copyright &copy; 2014 冯世昌 保留所有权利  
+ -->
+<meta content="text/html;charset=UTF-8" http-equiv="Content-Type">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+ <link type="text/css" rel="stylesheet" href="../../css/dxkite.css"/>
+</head>
+<body id=top>
+<title>处理事件</title>
+<h3 id=header>处理事件</h3>
+<div id="content">
+<!--  编辑区  -->
+<div class=textbox>
+
+<p>游戏仅仅是有画面是不行滴！游戏得要人来玩啦，今天我要教大家处理事件，处理的事件有，触屏事件，文本输入事件，键盘事件，鼠标事件；
+首先我们来看看储存事件的结构体<code>SDL_Event</code>，它有许多成员，好多我们现在都用不着捏，看看几个常用的成员:<a href="#tfinger">tfinger</a>(触屏事件),<a href="#text">text</a>(文本事件),<a href="#key">key</a>(键盘事件),<a href="#motion">motion</a>(鼠标滑动事件),<a href="#button">button</a>(鼠标按键事件),<a href="#wheel">wheel</a>(鼠标滚轮事件)，type(事件类型);想要深入，请访问<a href="http://www.libsdl.org/">SDL官网</a>;
+<p>处理事件有一个函数<code>SDL_PollEvent</code>对事件进行赋值<pre class=code>SDL_Event event;
+SDL_PollEvent(&event)</pre>当函数返回0时赋值成功(前提是有事件发生)，这时我们可以处理event了</p>
+我们先来看看触屏事件tfinger:
+<div id="tfinger" class=title2>tfinger 触屏事件</div>
+<p>tfinger有8成员,我们看看常用的4个:x,y,dx,dy,分别是触摸的初始位置的坐标和变化量，注意哦，是触摸点占屏幕的长(宽)的百分比，在Android平台上窗口的状态默认全屏，我们可以通过函数来获得:</p>
+<pre class=code>int W, H;
+SDL_GetWindowSize(Window, &W, &H);</pre>
+<p>
+那么获取当前触点就是这样的
+</p>
+<pre class=code>double Tx, Ty;
+Tx = event.tfinger.x;
+Ty = event.tfinger.y;</pre>
+<p>触点获得了，我们怎么知道我是触摸了(SDL_FINGERDOWN)还是滑动(SDL_FINGERMOTION)还是抬起(SDL_FINGERUP)？通过event的成员type:<pre class=code>if (event.type == SDL_FINGERUP)</pre>
+<a href="../../../code/nc_5_2.cpp.html">View Code</a></p>
+<div  id="text" class=title2>text 文本输入</div><p>
+text是储存了文本事件的成员，type为SDL_TEXTINPUT，它的成员有timestamp(时间戳),windowID(发生输入事件的窗口),text(输入的文本)
+从这里可以知道，我们想要获取输入的文本只需要
+</p>
+<pre class=code>char *input_text=event.text.text;</pre>
+<p>就行了，获取的文本编码是UTF-8，开始和停止输入:<code>SDL_StartTextInput,SDL_StopTextInput</code>在手机上可以起到打开和关闭键盘的作用</p>
+<a href="../../../code/nc_5_2.cpp.html">View Code</a>
+<div id="key" class=title2>key 键盘事件</div><p>
+key，键盘输入，电脑上方便一些，当然，手机上也有虚拟键盘，key的type有两种SDL_KEYDOWN和SDL_KEYUP，按下/抬起，来看看几个常用的成员statu(值有SDL_PRESSED(按下)和SDL_RELEASED(释放)
+,windowID(获取按键事件的窗口),keysym(按键);
+</p><p>keysym有两个常用成员:sym和scancode，分别响应虚拟按键和物理按键(说实话，我没发现区别……)，具体按键值大家去官网看看，虚拟按键即sym的值在数字键和字母键与字符的值是一样的，也就是说可以这样，注意字母键是小写的字符值</p>
+<pre class=code>if(Event.key.keysym.sym=='a')</pre>
+<p>值得注意的是，在Android平台由于大部分手机都是全触屏的了，键盘是通过<code>SDL_StartTextInput,SDL_StopTextInput</code>来控制的，所以与文字输入有关的按键值无法响应，通过text.text来玩吧。
+<br>代码:</br><a href="../../../code/nc_5_1.cpp.html">sym</a>,<a href="../../../code/nc_5_3.cpp.html">scancode</a></p>
+
+<div id="mouse" class=title2>鼠标事件</div>
+<p>电脑上最灵活的还是鼠标，使用鼠标操作可以提高游戏的体验，不是么？经测试在Android上鼠标事件可以基本代替触屏事件,type有4种，为SDL_MOUSEMOTION,SDL_MOUSEBUTTONDOWN,
+SDL_MOUSEBUTTONUP,
+SDL_MOUSEWHEEL;其中SDL_MOUSEMOTION,
+SDL_MOUSEBUTTONDOWN,
+SDL_MOUSEBUTTONUP分别与
+SDL_FINGERMOTION,
+SDL_FINGERDOWN,
+SDL_FINGERUP等效，而SDL_MOUSEWHEEL是鼠标的滚轮事件。</p>
+<div id="motion" class=title>motion 鼠标滑动事件</div>
+<p>鼠标滑动事件配合type使用完全可以代替触屏事件，它有4个常用成员，与触屏事件一样x,y鼠标位置坐标，xrel,yrel坐标在一定时间内的变化量，值得注意的是鼠标事件的坐标是以像素为单位而不是像触屏事件那样，是百分比。使用方式:
+<pre class=code>Sint32 xrel, yrel, x, y;
+x = event.motion.x;
+y = event.motion.y;
+xrel = event.motion.xrel;
+yrel = event.motion.yrel;
+</pre>
+</p>
+<div id="button" class=title>button 鼠标按键事件</div>
+<p>鼠标按键事件的成员常用的有button，x,y，一个是表示按下时的按键，后面两个是坐标，按键取值有:SDL_BUTTON_LEFT(左键),
+SDL_BUTTON_MIDDLE(中健),
+SDL_BUTTON_RIGHT(右键),
+SDL_BUTTON_X1
+,SDL_BUTTON_X2;
+x,y为事件发生是的坐标(相对于窗口)</p>
+<pre class=code>if (event.button.button == SDL_BUTTON_RIGHT)</pre>
+<div id="wheel" class=title>wheel 鼠标滚轮事件</div>
+<p>滚轮事件有两个常用的成员:x,y这次不是坐标，是滚动的程度，x表示水平滚动(正右负左)，y表示垂直滚动(正上负下)。</p>
+<a href="../../../code/nc_5_4.cpp.html">View Code</a>
+</div>
+<!--  编辑区  -->
+</div>
+<div id=bottom><a href="nc_4.html">上一节</a>
+<a href="contents.html">目录</a>
+<a href="nc_6.html">下一节</a>
+<a href="#top">回到顶部</a>
+</div>
+</div>
+
+</div>
+<div id=copr>
+Copyright &copy; 2014 冯世昌 保留所有权利
+</div>
+</body>
+</html>

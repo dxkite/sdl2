@@ -1,0 +1,61 @@
+<!DOCTYPE html><html>
+<head>
+<!--  
+Copyright &copy; dxkite all rights reserved.
+Copyright &copy; 2014-2015 冯世昌 保留所有权利  
+ -->
+<meta content="text/html;charset=UTF-8" http-equiv="Content-Type">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+</head><body bgcolor="#b3ffb3" >
+<title>图片处理</title>
+<h2>切割图片</h2>
+通过上节课我们学习了吧源代码模块化，和去除图片的背景色。
+<br>今天我们将要学习剪贴图片，首先。让我们看看要用到的SDL2函数：
+<pre><b><i>extern DECLSPEC int SDLCALL SDL_RenderCopy(
+SDL_Renderer * renderer,
+SDL_Texture * texture,
+const SDL_Rect * srcrect,
+const SDL_Rect * dstrect);
+</i></b></pre>
+对于这个函数，相信大家都不陌生，在前面已经用到过多次了，不知大家注意到没有，有个参数我们一直是用<b><i>NULL</i></b>来对它进行赋值的。也就是源函数申明中的<b><i>const Rect *srcrect</i></b>，对于这个参数，我们可以从名字知道src表示的是source的意思。rect 既rectangle也就是矩形，与之对应的类型是SDL_Rect类型,连起来就是源矩形。
+<br>那么，这个是干什么用的？仔细想想加上<b><b>const SDL_Rect *dstrect</b></b>这个提示就可以知道。这是用来在源表面上切割下一块矩形区域，而我们以前用<i><b>NULL</b></i>，是因为我们用的是整张图片。学了今天过后。一张图片文件就可以包含很多张小图片文件了，可以省下跟多东西，比如说内存。在用的时候，只需要知道那些小图片所在的矩形区域就可以使用啦！
+<br>废话不多说，看看我是怎样用它的吧;申明函数：
+<pre><b><i>int ClipBiltTexture(int x, int y, SDL_Texture * Draw_Texture, SDL_Rect Clip,SDL_Renderer * Draw_Render);</i></b></pre>从中我们可以看到有5个参数，其中Clip是我们新添的形参。它用来接受一个储存了小图片的位置信息的SDL_Rect类型。看看如何使用它：
+<pre><b><i>int ClipBiltTexture(int x, int y, SDL_Texture * Draw_Texture, SDL_Rect Clip,
+SDL_Renderer * Draw_Render)
+{
+	SDL_Rect Draw_Render_Rect;
+	Draw_Render_Rect.x = x;
+	Draw_Render_Rect.y = y;
+	int w = 0, h = 0;
+	SDL_QueryTexture(Draw_Texture, NULL, NULL, &w, &h);
+	Draw_Render_Rect.w = Clip.w;
+	Draw_Render_Rect.h = Clip.h;
+	SDL_RenderCopy(Draw_Render, Draw_Texture, &Clip, &Draw_Render_Rect);
+}</i></b></pre>通过观察我们发现：
+<pre><b><i>Draw_Render_Rect.w = Clip.w;
+Draw_Render_Rect.h = Clip.h;</i></b></pre>这两个地方与上节的有所不同，至于为什么，我们下节课在详细说明。看看我们上节课空的地方。
+	<pre><b><i>	SDL_RenderCopy(Draw_Render, Draw_Texture, NULL, &Draw_Render_Rect);</i></b></pre>如今已经被Clip所代替了
+	<pre><b><i>	SDL_RenderCopy(Draw_Render, Draw_Texture, &Clip, &Draw_Render_Rect);</i></b></pre>
+	这样，我们的切割函数也就基本上差不多了。
+我们要切割的图片是这张
+<br>
+<img src="../../assets/dots.png" align=center >
+<br>
+本张图片，包含了4个小圆形。我们现在把左上角的 那个圆切下来
+<pre><b><i>	SDL_Rect clip;
+	clip.x = 0;
+	clip.y = 0;
+	clip.w = 100;
+	clip.h = 100;</i></b></pre>
+<pre>
+对于那些坐标，你就不要问我怎么知道的了。切下来之后。我们继续使用上节课的源码。不过先添了一点：<b><i>	ClipBiltTexture(0, 0, pic, clip, renderer);</i></b></pre>
+调用了我们新编的函数。
+接下来，我们看看运行效果：
+<img src="">
+现在图片被我们成功切下来了。
+<br><a href="http://pan.baidu.com/share/link?shareid=3481470553&uk=1413256347">本课源码下载</a><br>
+对于以上教程有什么意见过建议。欢迎欢迎上贴吧<a href="http://tieba.baidu.com/f?&kw=dxkite&jump_tieba_native=1&mo_device=1">@DXkite</a>
+<hr><h3>DXkite 于2014-6-24</h3>
+</body></html>

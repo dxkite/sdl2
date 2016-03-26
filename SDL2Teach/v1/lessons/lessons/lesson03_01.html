@@ -1,0 +1,142 @@
+<!DOCTYPE html><html>
+<head>
+<!--  
+Copyright &copy; dxkite all rights reserved.
+Copyright &copy; 2014-2015 冯世昌 保留所有权利  
+ -->
+<meta content="text/html;charset=UTF-8" http-equiv="Content-Type">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+</head><body bgcolor="#b3ffb3" >
+<title>图片处理</title>
+<h2>去背景色</h2>
+经过前面两课的讲解，相信大家对于SDL2的使用有了初步的认识，下面我将带大家开始对图片的操作。
+<br>首先，说说大家的代码文件结构。在SDL2里，分为以下几大板块
+<oL>
+<Li>加载函数:
+加载函数，顾名思义，用来加载各种资源用的。
+<Li>释放函数:
+这个是用来释放内存用的。
+<Li>功能函数:
+实现对资源进行操作，如本节将要讲解的去背景色的函数
+</oL>
+经过上面的说明，那么我们开始写代码吧。这次不能像前面两个程序，把所有的东西都放在main函数了，我们要学会对程序进行模块化。
+<br>先申明一些要用到的东西：
+<pre><b><i>
+#include "SDL2/SDL.h"
+#include "SDL2/SDL_image.h"
+#include<string>
+	// 创建窗口 
+SDL_Window *win = NULL;
+	// 创建渲染器 
+SDL_Renderer *renderer = NULL;
+	// 创建绘画表面 
+SDL_Texture *pic = NULL;
+SDL_Surface *picSur = NULL;
+SDL_Texture *background = NULL;
+std::string RootFile = "/mnt/sdcard/SDL2教程/lessons/src/lesson03/";
+;</i></b></pre>
+初始化函数:
+<pre><b><i>int Init()
+{
+	/* 使用SDL前先初始化 */ 
+	SDL_Init(SDL_INIT_EVERYTHING);
+	IMG_Init(IMG_INIT_PNG);
+	/* 设置窗口 */
+	win = SDL_CreateWindow
+	("加载图片", 0, 0, 480, 800, 0);
+	/* 设置渲染器 */
+	renderer = 
+	SDL_CreateRenderer(win, -1, 
+	SDL_RENDERER_ACCELERATED);
+	
+}</i></b></pre>
+释放函数:
+<pre><b><i>
+int Destroy()
+{
+	/* 销毁绘画表面 */
+	SDL_DestroyTexture(pic);
+	/* 销毁渲染器 */
+	SDL_DestroyRenderer(renderer);
+	/* 销毁窗口 */
+	SDL_DestroyWindow(win);
+	/* 释放表面 */
+	SDL_FreeSurface(picSur);
+	/* 退出 */
+	SDL_Quit();
+	IMG_Quit();
+}</i></b></pre>
+绘画函数：
+<pre><b><i>
+int BiltTexture(int x, int y, SDL_Texture * Draw_Texture,
+SDL_Renderer * Draw_Render)
+{
+SDL_Rect Draw_Render_Rect;
+Draw_Render_Rect.x = x;
+Draw_Render_Rect.y = y;
+int w = 0, h = 0;
+SDL_QueryTexture(Draw_Texture, NULL, NULL, &w, &h);
+Draw_Render_Rect.w = w;
+Draw_Render_Rect.h = h;
+// 本部分函数可变性极强。
+// 有兴趣的同学可以自行更改
+SDL_RenderCopy(Draw_Render, Draw_Texture, NULL, &Draw_Render_Rect);
+}
+</i></b></pre>
+上面用到的
+<i><b>int SDL_QueryTexture(SDL_Texture* texture,Uint32* format, int* access,int* w,int* h)</b></i>是用来查询Texture的信息的。以便在绘制的时候不会造成图片拉伸等问题。注意使用方式哦！
+<br>接下来。我们来编写去背景色的函数
+<pre><b><i>SDL_Surface *SetColorKey(SDL_Surface * f, int r, int g, int b)
+{
+	// 声明定义一个32位无符号颜色
+	// (Usigned int 32->Uint32)
+	Uint32 colorkey = SDL_MapRGB(f->format, 0, 0xFF, 0xFF);
+	SDL_SetColorKey(f, SDL_TRUE, colorkey);
+	return f;
+}</i></b></pre>
+其中通过SDL_SetColorKey()设置关键色;参数说明 :表面,标记(SDL_FALSE,SDL_TRUE),32位无符号色;
+<br>想想还缺点什么？。。。哦！加载资源！这就是我们要去背景的图片
+<br><img src="../../assets/dots.png" align=center>
+<pre><b><i>int LoadSrc(std::string RP)
+{
+	//加载图片
+	picSur = IMG_Load((RP + "foo.png").c_str());
+	//去掉人的浅绿色背景
+	picSur = SetColorKey(picSur, 0, 0xff, 0xff);
+	//创建Texture
+	pic = SDL_CreateTextureFromSurface(renderer, picSur);
+	//加载背景。两句话被我揉在一起了
+	//不建议这样哦！
+	background =
+	SDL_CreateTextureFromSurface(
+		renderer,
+		IMG_Load((RP +"background.png").c_str())
+		);
+		//判断是否加载成功
+	if ((pic == NULL) || (background == NULL))
+		return -1;
+	return 0;
+}</i></b></pre>
+经过以上申明个定义，大部分的东西都齐全了。看看我们瘦过身的主函数：
+<pre><b><i>int main(int argc, char *argv[])
+{
+
+	if ((Init() != 0) || (LoadSrc(RootFile) != 0))
+		return -1;
+	SDL_RenderClear(renderer);
+	BiltTexture(0, 0, background, renderer);
+	BiltTexture(100, 200, pic, renderer);
+	SDL_RenderPresent(renderer);
+	SDL_Delay(2000);
+	Destroy();
+	return 0;
+}</i></b></pre>
+是不是苗条一些了？
+这是运行的图片：
+<img src="" align=center width=240 height=400>
+嗯，可以看到。图片的浅绿色背景不见了。
+<br><a href="http://pan.baidu.com/share/link?shareid=2753922536&uk=1413256347">本课源码下载</a><br>
+对于以上教程有什么意见过建议。欢迎欢迎上贴吧<a href="http://tieba.baidu.com/f?&kw=dxkite&jump_tieba_native=1&mo_device=1">@DXkite</a>
+<hr><h3>DXkite 于2014-6-22</h3>
+</body></html>

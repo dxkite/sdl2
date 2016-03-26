@@ -1,0 +1,68 @@
+
+<!DOCTYPE html><html>
+<head>
+<!--  
+Copyright &copy; dxkite all rights reserved.
+Copyright &copy; 2014-2015 冯世昌 保留所有权利  
+ -->
+<meta content="text/html;charset=UTF-8" http-equiv="Content-Type">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" /> 
+</head>
+<body bgcolor="#b3ffb3"  backgroud＝"background.png">
+<Title>第一课 创建窗口</Title>
+<code>
+第一次写教程，不要介意啊，有什么意见或建议建议欢迎上贴吧<a href="http://tieba.baidu.com/f?&kw=dxkite&jump_tieba_native=1&mo_device=1">@DXkite</a>,本课我们要学的内容是创建窗口，首先要包含SDL2的头文件：
+<pre><b><i>#include&nbsp;"SDL2/SDL.h"</i></b></pre>
+头文件里包含了你将会用到的SDL2函数
+<br>申明主函数，注意记住主函数的参数，因为SDL2很霸道的把主函数也定义了，所以主函数必须这样申明<pre><b><i>int main(int argc,char *argv[])
+int main(int argc,char **argv)</i></b></pre>偷偷的告诉你，不用记那个参数名，，只要类型记得就行了:
+<br>int main(int,char**)
+<br>嘿嘿。我经常忘掉参数名这东西
+<br>吐槽一句，我刚刚用
+<br>int main()
+<br>也成功运行了。。。
+<br>申明完主函数后，我们可以在主函数里做事了。<br>首先，你需要申明一个<br><i>SDL_Window*</i><br>结构体,注意有个<b>*</b>号捏，还要在申明时初始化为<b><i>NULL</i></b>:<pre><b><i>SDL_Window* win=NULL;</i></b></pre>在使用指针前初始化为<i>NULL</i>是一个很好的习惯，话说在申明变量是初始化也是个好习惯，我曾经被没有初始化变量弄得焦头烂额，呃呃，扯远了。这个干嘛用捏？看到结构体名字就知道是今天的主角窗口了。
+<br>窗口有了，那么我们要想在窗口上作画，要怎么办？嗯！到点了，我们想要在窗口上作画的话，就需要专门的画笔:Renderer;让我们来申明一个吧！
+<pre><b><i>SDL_Renderer *renderer=NULL;</i></b></pre>我试过为一个窗口创建两个画笔，但是有一个好像怎么也创建不了。。<br>
+申明有了，那让我们为窗口和画笔添加内容
+<pre><b><i>win = SDL_CreateWindow("Hello World", 0, 0, 480, 800, 0);
+renderer = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED);</i></b></pre>
+关于上面用到的函数，你可以在<a href="http://wiki.libsdl.org/FrontPage">官网Wiki</a>查到。我就不详细说明了，要注意的是窗口的大小，在C4droid上它总是全屏的。所以在C4droid上，设不设置关系不大。
+<br>在申明了上面两个后，还需要申明一张画板：Texture。。
+<pre><b><i>SDL_Texture *HelloTex = NULL;</i></b></pre>这很好理解，你想想，你总不能直接在墙上画画吧？直接画？！！*^_^*小心小屁屁哦！靠！1:11了，睡觉，明天继续写。
+<br>与画板配对的当然是画纸Surface，
+<pre><b><i>SDL_Surface *Surface = NULL;</i></b></pre>
+为什么还要弄个画纸出来？不是有画板就够了吗？
+<br>答案是画板只能在一个墙上画，是一个墙专有物品，而画纸是通用物品，可以在更多地方用哦！因为你绘画不可能只在一个地方画吧？还有画好的东西可以通用，也可以省点力喽。。。
+<pre><b><i>Surface = SDL_LoadBMP("/mnt/sdcard/hello.bmp");
+HelloTex = SDL_CreateTextureFromSurface(renderer, Surface);
+</i></b></pre>
+上面的代码是在画纸上作画和把画纸贴在画板HelloTex上。注意画纸(Surface)的加载函数，这里用到的是LoadBMP()也就是说只支持加载bmp格式的图片文件，这很重要，不然没发加载。。。。还有路径：<b><i>"/mnt/sdcard/hello.bmp"</i></b>，<br>在SDL2下的图片文件都是要用绝对路径的，如果使用相对路径，则不能加载。
+<br>用完画纸后，由于不需要它了，就把它清理一下：
+<pre><b><i>SDL_FreeSurface(Surface);</i></b></pre>释放内存。
+<br>下面关键到了！，开始挥动大笔作画吧！熟悉清理手中的画笔，让它保持干净。
+<pre><b><i>SDL_RenderClear(renderer);</i></b></pre>
+然后再画：<pre><b><i>SDL_RenderCopy(renderer, HelloTex, NULL, NULL);</i></b></pre>
+这里有两个<i><b>NULL</b></i>参数，第一个是截取画板上的区域，一个是截取墙上的区域，关于使用它，我会在第三课为大家介绍，还会介绍它的孪生兄弟给你哦！
+要像图片在窗口上显示出来，必须要刷新一下！
+<pre><b><i>SDL_RenderPresent(renderer);</i></b></pre>
+好了，基本上可以了，再有就是
+<pre><b><i>SDL_Delay(2000);</i></b></pre>在窗口上停留2秒(2000毫秒)
+最后是<pre><b><i>/* 销毁绘画表面 */
+SDL_DestroyTexture(HelloTex);
+/* 销毁渲染器 */ SDL_DestroyRenderer(renderer);
+/*销毁窗口*/
+SDL_DestroyWindow(win);
+/*退出*/
+SDL_Quit();
+return 0;</i></b></pre>
+清理收尾，这下，可以了。运行一下：
+<br><img src="../../assets/20140622_064526.png" alt="运行前图片" align=center width="240" height="400" ></img>
+<br>运行<br><img src="../../assets/20140622_064607.png" alt="运行时图片" align=center width="240" height="400" ></img>
+<br><a href="http://pan.baidu.com/share/link?shareid=1337409055&uk=1413256347">本课源码下载</a><br>
+对于以上教程有什么意见过建议。欢迎欢迎上贴吧<a href="http://tieba.baidu.com/f?&kw=dxkite&jump_tieba_native=1&mo_device=1">@DXkite</a>
+<hr><h3>DXkite 于2014-6-22</h3>
+</code>
+</body>
+</html>
